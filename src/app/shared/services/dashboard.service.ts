@@ -8,12 +8,15 @@ import {HttpClient} from '@angular/common/http';
 @Injectable()
 export class DashboardService {
   configUrl = 'https://api.github.com/';
-  users = 'users?since=';
+  users = 'users';
+  since = '?since=';
+  perPage = '&per_page=';
 
   constructor(private http: HttpClient) {
   }
 
-  getUsers(usersId= 0) {
-    return this.http.get(`${this.configUrl}${this.users}${usersId}`);
+  getUsers(sinceId= 0, usersPerPage = 5) {
+    return this.http
+      .get(`${this.configUrl}${this.users}${this.since}${sinceId}${this.perPage}${usersPerPage}`);
   }
 }

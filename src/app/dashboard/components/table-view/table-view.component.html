@@ -1,3 +1,20 @@
-<p>
-  Table-view works!
-</p>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">id</th>
+    <th scope="col">Picture</th>
+    <th scope="col">Name</th>
+    <th scope="col">url</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <th scope="row"><img [src]="user.avatar_url"></th>
+    <th scope="row">
+      {{ user.login }}
+    </th>
+    <th scope="row"><a [href]="user.html_url" target="_blank">{{user.html_url}}</a></th>
+  </tr>
+  </tbody>
+</table>
