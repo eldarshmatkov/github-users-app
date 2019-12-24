@@ -6,8 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pagination-panel.component.scss']
 })
 export class PaginationPanelComponent implements OnInit {
-  meals: string[] = ['eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe', 'eda', 'eshe eda', 'ieshe'];
-  page = 1;
 
   constructor() { }
 
