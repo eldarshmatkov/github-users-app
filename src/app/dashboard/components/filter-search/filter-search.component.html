@@ -1,3 +1,7 @@
-<p>
-  filter-search works!
-</p>
+  <div class="form-group">
+    <label for="searchByName">Search by Name</label>
+    <input
+      [(ngModel)]="searchByUser"
+      #userSearchInput
+      type="search" class="form-control" id="searchByName" placeholder="Search for a user">
+  </div>

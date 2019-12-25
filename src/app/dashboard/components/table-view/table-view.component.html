@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped mt-4">
   <thead>
   <tr>
     <th scope="col">id</th>
@@ -7,8 +7,9 @@
     <th scope="col">url</th>
   </tr>
   </thead>
-  <tbody>
-  <tr *ngFor="let user of users; index as i">
+  <tbody *ngIf="users">
+  <tr
+    *ngFor="let user of users.items; index as i">
     <th scope="row">{{ i + 1 }}</th>
     <th scope="row"><img [src]="user.avatar_url"></th>
     <th scope="row">

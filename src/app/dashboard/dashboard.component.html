@@ -1,6 +1,9 @@
-<p>
-  dashboard works!
-</p>
-<app-show-records></app-show-records>
-<app-table-view></app-table-view>
+<div class="row justify-content-center">
+  <h1>Github Users App</h1>
+  {{usersPerPage}}
+  {{searchByUser}}
+</div>
+<app-filter-search (searchByUserChange)="setSearchByUser($event)"></app-filter-search>
+<app-show-records (usersPerPageChange)="setUsersPerPage($event)"></app-show-records>
+<app-table-view [users]="users"></app-table-view>
 <app-pagination-panel></app-pagination-panel>
