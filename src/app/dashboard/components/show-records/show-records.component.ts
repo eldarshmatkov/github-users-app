@@ -8,7 +8,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class ShowRecordsComponent implements OnInit {
   usersPerPage = 10;
   @Output() usersPerPageChange = new EventEmitter<number>();
-  usersPerPageOptions: number[] = [10, 20, 40, 80];
+  usersPerPageOptions: number[] = [5, 10, 20, 40, 80];
 
   constructor() { }
 

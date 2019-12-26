@@ -8,7 +8,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
   styleUrls: ['./filter-search.component.scss']
 })
 export class FilterSearchComponent implements OnInit, OnDestroy {
-  searchByUser: string;
+  searchByUser = 'coolname';
   @Output() searchByUserChange = new EventEmitter<string>();
   @ViewChild('userSearchInput') userSearchInput: ElementRef;
   $inputEvent: Subscription;
@@ -26,6 +26,7 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
     ).subscribe((inputData: string) => {
       this.setSearchByUser(inputData);
     });
+    this.setSearchByUser(this.searchByUser);
   }
 
   ngOnDestroy(): void {

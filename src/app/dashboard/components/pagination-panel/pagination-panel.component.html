@@ -1,13 +1,22 @@
 <div class="row justify-content-center mt-3">
   <nav aria-label="Page navigation col-3">
     <ul class="pagination">
-      <li class="page-item"><a class="page-link" href="#">Start</a></li>
-      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      <li class="page-item"><a class="page-link" href="#">End</a></li>
+      <li class="page-item"
+      (click)="firstPage()"><span class="page-link">Start</span></li>
+      <li class="page-item"><span class="page-link"
+         (click)="previousPage()">Previous</span></li>
+      <li class="page-item"
+          (click)="selectPage(page)"
+          [ngClass]="{
+          'active': page === currentPage
+          }"
+          *ngFor="let page of pagesArray">
+        <span class="page-link">{{page}}</span>
+      </li>
+      <li class="page-item"><span class="page-link"
+         (click)="nextPage()">Next</span></li>
+      <li class="page-item"
+          (click)="lastPage()"><span class="page-link">End</span></li>
     </ul>
   </nav>
 </div>

@@ -9,8 +9,8 @@
   </thead>
   <tbody *ngIf="users">
   <tr
-    *ngFor="let user of users.items; index as i">
-    <th scope="row">{{ i + 1 }}</th>
+    *ngFor="let user of users.items">
+    <th scope="row">{{ user.id }}</th>
     <th scope="row"><img [src]="user.avatar_url"></th>
     <th scope="row">
       {{ user.login }}

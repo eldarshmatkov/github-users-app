@@ -8,7 +8,8 @@ import {DashboardService} from '../shared/services/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   usersPerPage: number;
-  searchByUser = '';
+  searchByUser: string;
+  paginationCurrentPage = 0;
   users;
 
   constructor(private dashboardService: DashboardService) {
@@ -19,16 +20,23 @@ export class DashboardComponent implements OnInit {
 
   setUsersPerPage($event) {
     this.usersPerPage = $event;
-    this.searchUsers(this.searchByUser, this.usersPerPage);
+    this.paginationCurrentPage = 1;
+    this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  setSearchByUser($event?) {
+  setSearchByUser($event) {
     this.searchByUser = $event;
-    this.searchUsers(this.searchByUser, this.usersPerPage);
+    this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  searchUsers(userName?: string, usersPerPage?: number) {
-    this.dashboardService.searchUsers(userName, usersPerPage)
+  setPaginationOffset($event) {
+    console.log($event);
+    this.paginationCurrentPage = $event;
+    this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
+  }
+
+  searchUsers(userName?: string, usersPerPage?: number, currentPage?: number) {
+    this.dashboardService.searchUsers(userName, usersPerPage, currentPage)
       .subscribe(
         data => {
           console.log(data, 'searchUsers');
