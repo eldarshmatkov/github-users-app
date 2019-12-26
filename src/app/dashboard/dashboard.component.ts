@@ -8,27 +8,27 @@ import {DashboardService} from '../shared/services/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   usersPerPage: number;
-  searchByUser: string;
+  searchByUser = '';
   users;
 
   constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
-    this.searchUsers();
   }
 
   setUsersPerPage($event) {
     this.usersPerPage = $event;
+    this.searchUsers(this.searchByUser, this.usersPerPage);
   }
 
   setSearchByUser($event?) {
     this.searchByUser = $event;
-    this.searchUsers($event);
+    this.searchUsers(this.searchByUser, this.usersPerPage);
   }
 
-  searchUsers(user?: string) {
-    this.dashboardService.searchUsers(user)
+  searchUsers(userName?: string, usersPerPage?: number) {
+    this.dashboardService.searchUsers(userName, usersPerPage)
       .subscribe(
         data => {
           console.log(data, 'searchUsers');
