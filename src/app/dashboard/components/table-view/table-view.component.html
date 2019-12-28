@@ -1,21 +1,15 @@
-<table class="table table-striped mt-4">
-  <thead>
-  <tr>
-    <th scope="col">id</th>
-    <th scope="col">Picture</th>
-    <th scope="col">Name</th>
-    <th scope="col">url</th>
-  </tr>
-  </thead>
-  <tbody *ngIf="users">
-  <tr
-    *ngFor="let user of users.items">
-    <th scope="row">{{ user.id }}</th>
-    <th scope="row"><img [src]="user.avatar_url"></th>
-    <th scope="row">
-      {{ user.login }}
-    </th>
-    <th scope="row"><a [href]="user.html_url" target="_blank">{{user.html_url}}</a></th>
-  </tr>
-  </tbody>
-</table>
+<div class="table mt-4">
+  <div class="table__head">
+    <div class="row">
+      <div class="col">Expand</div>
+      <div class="col">Id</div>
+      <div class="col">Picture</div>
+      <div class="col">Name</div>
+      <div class="col">Url</div>
+    </div>
+  </div>
+  <div class="table__body" *ngIf="users">
+    <app-table-row
+      *ngFor="let user of users.items" [user]="user"></app-table-row>
+  </div>
+</div>

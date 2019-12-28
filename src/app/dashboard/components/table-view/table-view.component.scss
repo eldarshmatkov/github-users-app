@@ -1,8 +1,28 @@
 :host {
   .table {
     width: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
+
     img {
       width: 50px
+    }
+
+    &__head {
+      border-top: 1px solid #dee2e6;
+      border-bottom: 2px solid #dee2e6;
+
+      .row {
+        margin: 0;
+
+        & > .col {
+          padding: .75rem;
+
+          &:last-child {
+            flex: 2;
+          }
+        }
+      }
     }
   }
 }

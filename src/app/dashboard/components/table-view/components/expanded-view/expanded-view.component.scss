@@ -1,0 +1,15 @@
+.row {
+  margin: 0;
+
+  .col {
+    padding: 25px;
+    border-bottom: 1px solid #dee2e6;
+
+    &:first-child {
+      padding-left: 75px;
+    }
+    &:last-child {
+      flex: 2;
+    }
+  }
+}
