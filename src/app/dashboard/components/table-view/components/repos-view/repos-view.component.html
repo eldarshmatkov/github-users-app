@@ -12,4 +12,8 @@
   <div class="col">{{repos.url}}</div>
 </div>
 
+<app-commits-view
+  [commit]="commit"
+  *ngFor="let commit of reposCommits"
+></app-commits-view>
 

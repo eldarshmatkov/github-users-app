@@ -18,9 +18,11 @@
   </div>
 
   <div *ngIf="isExpanded && userRepos?.length !== 0; else noRepos">
-    <app-expanded-view
+    <app-repos-view
+      [userLogin]="user.login"
       [repos]="repos"
-      *ngFor="let repos of userRepos"></app-expanded-view>
+      *ngFor="let repos of userRepos">
+    </app-repos-view>
   </div>
 
   <ng-template #noRepos>

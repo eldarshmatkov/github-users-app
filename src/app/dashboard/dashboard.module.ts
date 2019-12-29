@@ -6,11 +6,12 @@ import { TableViewComponent } from './components/table-view/table-view.component
 import { PaginationPanelComponent } from './components/pagination-panel/pagination-panel.component';
 import { DashboardComponent } from './dashboard.component';
 import {FormsModule} from '@angular/forms';
-import { ExpandedViewComponent } from './components/table-view/components/expanded-view/expanded-view.component';
+import { ReposViewComponent } from './components/table-view/components/repos-view/repos-view.component';
 import { TableRowComponent } from './components/table-view/components/table-row/table-row.component';
+import { CommitsViewComponent } from './components/table-view/components/commits-view/commits-view.component';
 
 @NgModule({
-  declarations: [FilterSearchComponent, ShowRecordsComponent, TableViewComponent, PaginationPanelComponent, DashboardComponent, ExpandedViewComponent, TableRowComponent, ],
+  declarations: [FilterSearchComponent, ShowRecordsComponent, TableViewComponent, PaginationPanelComponent, DashboardComponent, ReposViewComponent, TableRowComponent, CommitsViewComponent, ],
   imports: [
     CommonModule,
     FormsModule,

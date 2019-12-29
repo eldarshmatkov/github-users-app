@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpandedViewComponent } from './expanded-view.component';
+import { CommitsViewComponent } from './commits-view.component';
 
-describe('ExpandedViewComponent', () => {
-  let component: ExpandedViewComponent;
-  let fixture: ComponentFixture<ExpandedViewComponent>;
+describe('CommitsViewComponent', () => {
+  let component: CommitsViewComponent;
+  let fixture: ComponentFixture<CommitsViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExpandedViewComponent ]
+      declarations: [ CommitsViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExpandedViewComponent);
+    fixture = TestBed.createComponent(CommitsViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
