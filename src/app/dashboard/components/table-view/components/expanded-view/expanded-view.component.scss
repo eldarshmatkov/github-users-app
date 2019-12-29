@@ -2,11 +2,12 @@
   margin: 0;
 
   .col {
-    padding: 25px;
+    padding: .75rem;
     border-bottom: 1px solid #dee2e6;
 
     &:first-child {
-      padding-left: 75px;
+      flex: 2;
+      //padding-left: 75px;
     }
     &:last-child {
       flex: 2;

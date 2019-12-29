@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {DashboardService} from '../../../../../shared/services/dashboard.service';
 
 @Component({
   selector: 'app-table-row',
@@ -8,16 +9,27 @@ import {Component, Input, OnInit} from '@angular/core';
 export class TableRowComponent implements OnInit {
   @Input() user;
   isExpanded = false;
+  userRepos: any;
 
-  constructor() {
+  constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
   }
 
-  expandRow() {
+  expandRow(username: string) {
+    if (!this.isExpanded) {
+      this.dashboardService.fetchUserRepos(username)
+        .subscribe(
+          data => {
+            console.log(data, 'userRepos');
+            this.userRepos = data;
+          },
+          err => console.error(err),
+        );
+    }
+
     this.isExpanded = !this.isExpanded;
-    console.log('expand!');
   }
 
 }

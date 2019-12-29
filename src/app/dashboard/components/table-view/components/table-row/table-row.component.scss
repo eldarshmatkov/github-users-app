@@ -10,7 +10,9 @@
 
   & > .col {
     padding: .75rem;
-
+    &:first-child {
+      flex: 2;
+    }
     &:last-child {
       flex: 2;
     }

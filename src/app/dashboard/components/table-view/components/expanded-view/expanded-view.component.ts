@@ -7,6 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ExpandedViewComponent implements OnInit {
   @Input() isExpanded;
+  @Input() repos;
 
   constructor() { }
 
