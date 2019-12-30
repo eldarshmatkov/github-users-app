@@ -1,16 +1,10 @@
 .row {
   margin: 0;
+  border-bottom: 1px solid #dee2e6;
 
   .col {
+    display: flex;
+    align-items: center;
     padding: .75rem;
-    border-bottom: 1px solid #dee2e6;
-
-    &:first-child {
-      flex: 2;
-      //padding-left: 75px;
-    }
-    &:last-child {
-      flex: 2;
-    }
   }
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,9 @@ import {DashboardService} from '../shared/services/dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  usersPerPage: number;
+  usersPerPage = 10;
   searchByUser: string;
-  paginationCurrentPage = 0;
+  paginationCurrentPage = 1;
   users;
 
   constructor(private dashboardService: DashboardService) {
@@ -35,7 +36,7 @@ export class DashboardComponent implements OnInit {
     this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  searchUsers(userName?: string, usersPerPage?: number, currentPage?: number) {
+  searchUsers(userName: string, usersPerPage: number, currentPage: number) {
     this.dashboardService.searchUsers(userName, usersPerPage, currentPage)
       .subscribe(
         data => {

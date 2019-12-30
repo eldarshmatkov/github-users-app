@@ -5,8 +5,18 @@
       <div class="col">Url</div>
     </div>
   </div>
-  <div class="table__body" *ngIf="users">
+  <div class="table__body" *ngIf="users?.items; else noUsers">
     <app-table-row
       *ngFor="let user of users.items" [user]="user"></app-table-row>
   </div>
 </div>
+
+<ng-template #noUsers>
+  <div class="no-users table__body">
+    <div class="row">
+      <div class="col mt-3 ml-3">
+        No search result
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {throwError} from 'rxjs';
+import {BehaviorSubject, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 
 @Injectable({
@@ -14,9 +14,15 @@ export class DashboardService {
   constructor(private http: HttpClient) {
   }
 
-  searchUsers(userName?: string, usersPerPage?: number, currentPage?: number) {
-    return this.http
-      .get(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
+  searchUsers(userName: string, usersPerPage: number, currentPage: number) {
+    if (userName.length > 0) {
+      return this.http
+        .get(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
+    } else {
+      const $bSubject = new BehaviorSubject(null);
+      $bSubject.next([]);
+      return $bSubject;
+    }
   }
 
   fetchUserRepos(username: string) {

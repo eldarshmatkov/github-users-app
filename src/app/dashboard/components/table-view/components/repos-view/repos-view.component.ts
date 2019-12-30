@@ -11,6 +11,7 @@ export class ReposViewComponent implements OnInit {
   @Input() repos;
   @Input() userLogin;
   reposCommits: any;
+  commitsExpanded = false;
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -18,15 +19,16 @@ export class ReposViewComponent implements OnInit {
   }
 
   expandRow() {
-    this.isExpanded = !this.isExpanded;
-
-    this.dashboardService.fetchReposCommits(this.userLogin, this.repos.name)
-      .subscribe(
-        data => {
-          console.log(data, 'reposCommits');
-          this.reposCommits = data;
-        },
-        err => console.error(err),
-      );
+    if (!this.commitsExpanded) {
+      this.dashboardService.fetchReposCommits(this.userLogin, this.repos.name)
+        .subscribe(
+          data => {
+            console.log(data, 'reposCommits');
+            this.reposCommits = data;
+          },
+          err => console.error(err),
+        );
+    }
+    this.commitsExpanded = !this.commitsExpanded;
   }
 }
