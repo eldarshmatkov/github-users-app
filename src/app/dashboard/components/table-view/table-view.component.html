@@ -5,9 +5,9 @@
       <div class="col">Url</div>
     </div>
   </div>
-  <div class="table__body" *ngIf="users?.items; else noUsers">
+  <div class="table__body" *ngIf="users; else noUsers">
     <app-table-row
-      *ngFor="let user of users.items" [user]="user"></app-table-row>
+      *ngFor="let user of users" [user]="user"></app-table-row>
   </div>
 </div>
 

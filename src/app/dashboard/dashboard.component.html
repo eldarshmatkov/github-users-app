@@ -3,9 +3,10 @@
 </div>
 <app-filter-search (searchByUserChange)="setSearchByUser($event)"></app-filter-search>
 <app-show-records (usersPerPageChange)="setUsersPerPage($event)"></app-show-records>
-<app-table-view [users]="users"></app-table-view>
+<app-table-view [users]="pagedItems"></app-table-view>
 <app-pagination-panel
   [users]="users"
   [usersPerPage]="usersPerPage"
+  (sendPagedItems)="setPagedItems($event)"
   [(paginationCurrentPage)]="paginationCurrentPage"
   (paginationCurrentPageChange)="setPaginationOffset($event)"></app-pagination-panel>

@@ -1,6 +1,23 @@
-<div class="row justify-content-center mt-3" *ngIf="users?.items">
+<div class="row justify-content-center mt-3">
   <nav aria-label="Page navigation col-3">
     <ul class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+        <a (click)="setPage(1)">First</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.totalPages)">Last</a>
+      </li>
+    </ul>
+    <!--<ul class="pagination">
       <li class="page-item"
       (click)="firstPage()"><span class="page-link">Start</span></li>
       <li class="page-item"><span class="page-link"
@@ -17,6 +34,6 @@
          (click)="nextPage()">Next</span></li>
       <li class="page-item"
           (click)="lastPage()"><span class="page-link">End</span></li>
-    </ul>
+    </ul>-->
   </nav>
 </div>
