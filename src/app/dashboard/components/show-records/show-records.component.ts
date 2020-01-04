@@ -13,7 +13,6 @@ export class ShowRecordsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.usersPerPageChange.emit(this.usersPerPage);
   }
 
   setUserPerPage($event) {

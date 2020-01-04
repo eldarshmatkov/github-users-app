@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
-import {PagerService} from '../shared/services/pager.service';
+import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,34 +8,22 @@ import {PagerService} from '../shared/services/pager.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild(PaginationPanelComponent) paginationPanel: PaginationPanelComponent;
   usersPerPage = 10;
   searchByUser: string;
   paginationCurrentPage = 1;
-  users;
-  pagedUsers: any[];
+  users: any;
 
-  pager: any = {};
-  pagedItems: any[];
 
-  constructor(private dashboardService: DashboardService, private pagerService: PagerService) {
+  constructor(private dashboardService: DashboardService) {
   }
 
   ngOnInit() {
 
   }
 
-  setPage(page: number) {
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.users.total_count, page, this.usersPerPage);
-    console.log(this.pager, 'set page');
-
-    // get current page of items
-    this.pagedItems = this.users.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
-  }
-
-  setPagedItems($event) {
-    this.pagedUsers = $event;
-    console.log($event, 'paged items here');
+  changePageEvent($event) {
+    this.searchUsers(this.searchByUser, this.usersPerPage, $event);
   }
 
   setUsersPerPage($event) {
@@ -50,19 +38,13 @@ export class DashboardComponent implements OnInit {
     this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  setPaginationOffset($event) {
-    console.log($event);
-    this.paginationCurrentPage = $event;
-    this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
-  }
-
   searchUsers(userName: string, usersPerPage: number, currentPage: number) {
     this.dashboardService.searchUsers(userName, usersPerPage, currentPage)
       .subscribe(
         data => {
-          console.log(data, 'searchUsers');
           this.users = data;
-          this.setPage(currentPage);
+          this.paginationPanel.users = data;
+          this.paginationPanel.setPage(currentPage);
         },
         err => console.error(err),
       );

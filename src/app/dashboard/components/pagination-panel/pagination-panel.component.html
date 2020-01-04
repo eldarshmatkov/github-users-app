@@ -2,38 +2,27 @@
   <nav aria-label="Page navigation col-3">
     <ul class="pagination">
       <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
-        <a (click)="setPage(1)">First</a>
+        <span class="page-link" (click)="setPage(1); changePage(1)">First</span>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
-        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+        <span class="page-link" (click)="setPage(pager.currentPage - 1); changePage(pager.currentPage)">Previous</span>
       </li>
-      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-        <a (click)="setPage(page)">{{page}}</a>
+      <li *ngFor="let page of pager.pages"
+          [ngClass]="{active:pager.currentPage === page}"
+          class="page-item">
+        <span class="page-link" (click)="setPage(page); changePage(page)">{{page}}</span>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      <li
+        class="page-item"
+        [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <span class="page-link" (click)="setPage(pager.currentPage + 1);
+         changePage(pager.currentPage)">Next</span>
       </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a (click)="setPage(pager.totalPages)">Last</a>
+      <li
+        class="page-item"
+        [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <span class="page-link" (click)="setPage(pager.totalPages); changePage(pager.totalPages)">Last</span>
       </li>
     </ul>
-    <!--<ul class="pagination">
-      <li class="page-item"
-      (click)="firstPage()"><span class="page-link">Start</span></li>
-      <li class="page-item"><span class="page-link"
-         (click)="previousPage()">Previous</span></li>
-      <li class="page-item"
-          (click)="selectPage(page)"
-          [ngClass]="{
-          'active': page === currentPage
-          }"
-          *ngFor="let page of pagesArray">
-        <span class="page-link">{{page}}</span>
-      </li>
-      <li class="page-item"><span class="page-link"
-         (click)="nextPage()">Next</span></li>
-      <li class="page-item"
-          (click)="lastPage()"><span class="page-link">End</span></li>
-    </ul>-->
   </nav>
 </div>

@@ -22,7 +22,6 @@ export class TableRowComponent implements OnInit {
       this.dashboardService.fetchUserRepos(username)
         .subscribe(
           data => {
-            console.log(data, 'userRepos');
             this.userRepos = data;
           },
           err => console.error(err),

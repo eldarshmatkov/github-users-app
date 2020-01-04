@@ -7,69 +7,30 @@ import {PagerService} from '../../../shared/services/pager.service';
   styleUrls: ['./pagination-panel.component.scss']
 })
 export class PaginationPanelComponent implements OnInit, OnChanges {
-  @Input() users;
+  users;
   @Input() usersPerPage;
-  @Input() paginationCurrentPage;
-  @Output() paginationCurrentPageChange = new EventEmitter<number>();
-  currentPage = 1;
-  maximumPage: number;
-  pagesArray = [];
-
   pager: any = {};
   pagedItems: any[];
-  @Output() sendPagedItems = new EventEmitter<number[]>();
+  @Output() changePageEmitter = new EventEmitter<number>();
 
   constructor(private pagerService: PagerService) {
   }
 
   ngOnChanges() {
-    /*    if (this.users && this.users.total_count) {
-          this.maximumPage = Math.ceil(this.users.total_count / this.usersPerPage);
-          this.pagesArray = Array.from({length: this.maximumPage}, (v, k) => k + 1);
-          console.log(this.pagesArray);
-        }
-        this.currentPage = this.paginationCurrentPage;*/
   }
 
   ngOnInit() {
   }
 
+  changePage(page: number) {
+    this.changePageEmitter.emit(page);
+  }
+
   setPage(page: number) {
     // get pager object from service
     this.pager = this.pagerService.getPager(this.users.total_count, page, this.usersPerPage);
-    console.log(this.pager, 'set page');
 
     // get current page of items
     this.pagedItems = this.users.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
-
-  /*
-    selectPage(pageId) {
-      this.currentPage = pageId;
-      this.paginationCurrentPageChange.emit(this.currentPage);
-    }
-
-    nextPage() {
-      if (this.currentPage !== this.maximumPage) {
-        this.currentPage = ++this.currentPage;
-        this.paginationCurrentPageChange.emit(this.currentPage);
-      }
-    }
-
-    previousPage() {
-      if (this.currentPage !== 1) {
-        this.currentPage = --this.currentPage;
-        this.paginationCurrentPageChange.emit(this.currentPage);
-      }
-    }
-
-    firstPage() {
-      this.currentPage = 1;
-      this.paginationCurrentPageChange.emit(this.currentPage);
-    }
-
-    lastPage() {
-      this.currentPage = this.maximumPage;
-      this.paginationCurrentPageChange.emit(this.currentPage);
-    }*/
 }

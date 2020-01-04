@@ -23,7 +23,6 @@ export class ReposViewComponent implements OnInit {
       this.dashboardService.fetchReposCommits(this.userLogin, this.repos.name)
         .subscribe(
           data => {
-            console.log(data, 'reposCommits');
             this.reposCommits = data;
           },
           err => console.error(err),
