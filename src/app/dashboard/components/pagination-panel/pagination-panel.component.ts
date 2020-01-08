@@ -9,6 +9,7 @@ import {PagerService} from '../../../shared/services/pager.service';
 export class PaginationPanelComponent implements OnInit, OnChanges {
   users;
   @Input() usersPerPage;
+  @Input() shouldShow;
   pager: any = {};
   pagedItems: any[];
   @Output() changePageEmitter = new EventEmitter<number>();
@@ -27,10 +28,10 @@ export class PaginationPanelComponent implements OnInit, OnChanges {
   }
 
   setPage(page: number) {
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.users.total_count, page, this.usersPerPage);
+      // get pager object from service
+      this.pager = this.pagerService.getPager(this.users.total_count, page, this.usersPerPage);
 
-    // get current page of items
-    this.pagedItems = this.users.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+      // get current page of items
+      this.pagedItems = this.users.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 }

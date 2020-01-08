@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   searchByUser: string;
   paginationCurrentPage = 1;
   users: any;
+  isLoading = false;
 
 
   constructor(private dashboardService: DashboardService) {
@@ -39,6 +40,10 @@ export class DashboardComponent implements OnInit {
   }
 
   searchUsers(userName: string, usersPerPage: number, currentPage: number) {
+    if (!userName) {
+      return false;
+    }
+    this.isLoading = true;
     this.dashboardService.searchUsers(userName, usersPerPage, currentPage)
       .subscribe(
         data => {
@@ -46,7 +51,10 @@ export class DashboardComponent implements OnInit {
           this.paginationPanel.users = data;
           this.paginationPanel.setPage(currentPage);
         },
-        err => console.error(err),
+        err => this.isLoading = false,
+        () => {
+          this.isLoading = false;
+        }
       );
   }
 }

@@ -19,6 +19,7 @@
 
   <div *ngIf="isExpanded && userRepos?.length !== 0; else noRepos">
     <app-repos-view
+      (isLoading)="isLoading.emit($event)"
       [userLogin]="user.login"
       [repos]="repos"
       *ngFor="let repos of userRepos">

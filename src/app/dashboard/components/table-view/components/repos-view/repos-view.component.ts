@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class ReposViewComponent implements OnInit {
   @Input() userLogin;
   reposCommits: any;
   commitsExpanded = false;
+  @Output() isLoading = new EventEmitter<boolean>();
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -20,12 +21,16 @@ export class ReposViewComponent implements OnInit {
 
   expandRow() {
     if (!this.commitsExpanded) {
+      this.isLoading.emit(true);
       this.dashboardService.fetchReposCommits(this.userLogin, this.repos.name)
         .subscribe(
           data => {
             this.reposCommits = data;
           },
-          err => console.error(err),
+          err => this.isLoading.emit(false),
+          () => {
+            this.isLoading.emit(false);
+          }
         );
     }
     this.commitsExpanded = !this.commitsExpanded;

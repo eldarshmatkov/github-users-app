@@ -9,9 +9,10 @@ import {FormsModule} from '@angular/forms';
 import { ReposViewComponent } from './components/table-view/components/repos-view/repos-view.component';
 import { TableRowComponent } from './components/table-view/components/table-row/table-row.component';
 import { CommitsViewComponent } from './components/table-view/components/commits-view/commits-view.component';
+import {SpinnerComponent} from '../shared/components/spinner/spinner.component';
 
 @NgModule({
-  declarations: [FilterSearchComponent, ShowRecordsComponent, TableViewComponent, PaginationPanelComponent, DashboardComponent, ReposViewComponent, TableRowComponent, CommitsViewComponent, ],
+  declarations: [FilterSearchComponent, ShowRecordsComponent, TableViewComponent, PaginationPanelComponent, DashboardComponent, ReposViewComponent, TableRowComponent, CommitsViewComponent, SpinnerComponent],
   imports: [
     CommonModule,
     FormsModule,

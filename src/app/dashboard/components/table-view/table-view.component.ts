@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-table-view',
@@ -8,6 +8,7 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 
 export class TableViewComponent implements OnInit, OnChanges {
   @Input() users;
+  @Output() isLoading = new EventEmitter<boolean>();
 
   constructor() {
   }

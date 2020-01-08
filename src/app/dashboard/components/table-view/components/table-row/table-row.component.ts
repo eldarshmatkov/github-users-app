@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 
 @Component({
@@ -10,6 +10,7 @@ export class TableRowComponent implements OnInit {
   @Input() user;
   isExpanded = false;
   userRepos: any;
+  @Output() isLoading = new EventEmitter<boolean>();
 
   constructor(private dashboardService: DashboardService) {
   }
@@ -19,12 +20,16 @@ export class TableRowComponent implements OnInit {
 
   expandRow(username: string) {
     if (!this.isExpanded) {
+      this.isLoading.emit(true);
       this.dashboardService.fetchUserRepos(username)
         .subscribe(
           data => {
             this.userRepos = data;
           },
-          err => console.error(err),
+          err => this.isLoading.emit(false),
+          () => {
+            this.isLoading.emit(false);
+          }
         );
     }
 

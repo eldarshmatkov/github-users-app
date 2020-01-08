@@ -1,0 +1,14 @@
+:host {
+  .is-loading-wrapper {
+    opacity: 1;
+    transition: opacity 0.2s linear;
+
+    &.active {
+      opacity: 0.6;
+      pointer-events: none;
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+}
