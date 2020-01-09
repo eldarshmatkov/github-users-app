@@ -5,10 +5,8 @@
   <app-filter-search (searchByUserChange)="setSearchByUser($event)"></app-filter-search>
   <app-show-records (usersPerPageChange)="setUsersPerPage($event)"></app-show-records>
   <app-table-view
-    (isLoading)="isLoading = $event"
-    [users]="users?.items"></app-table-view>
+    (isLoading)="isLoading = $event"></app-table-view>
   <app-pagination-panel
-    [shouldShow]="users?.items"
     [usersPerPage]="usersPerPage"
     (changePageEmitter)="changePageEvent($event)"></app-pagination-panel>
 </div>

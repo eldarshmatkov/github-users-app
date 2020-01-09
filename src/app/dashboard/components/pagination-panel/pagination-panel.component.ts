@@ -9,7 +9,6 @@ import {PagerService} from '../../../shared/services/pager.service';
 export class PaginationPanelComponent implements OnInit, OnChanges {
   users;
   @Input() usersPerPage;
-  @Input() shouldShow;
   pager: any = {};
   pagedItems: any[];
   @Output() changePageEmitter = new EventEmitter<number>();

@@ -1,4 +1,6 @@
-import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, Output, EventEmitter, OnDestroy} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {searchResponse} from '../../../shared/Models/searchResponse.type';
 
 @Component({
   selector: 'app-table-view',
@@ -6,16 +8,19 @@ import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angula
   styleUrls: ['./table-view.component.scss']
 })
 
-export class TableViewComponent implements OnInit, OnChanges {
-  @Input() users;
+export class TableViewComponent implements OnInit, OnDestroy {
   @Output() isLoading = new EventEmitter<boolean>();
+  users: searchResponse;
 
-  constructor() {
-  }
-
-  ngOnChanges() {
-  }
+  constructor(private store: Store<{ usersResponse: searchResponse}>) {}
 
   ngOnInit() {
+    this.store.select('usersResponse').subscribe(
+      (data) => {
+        this.users = data;
+      },
+      (error => {
+        console.log(error); })
+    );
   }
 }

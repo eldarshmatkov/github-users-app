@@ -1,7 +1,8 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
+import {searchResponse} from '../Models/searchResponse.type';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,10 @@ export class DashboardService {
   constructor(private http: HttpClient) {
   }
 
-  searchUsers(userName: string, usersPerPage: number, currentPage: number) {
+  searchUsers(userName: string, usersPerPage: number, currentPage: number): Observable<searchResponse> {
     if (userName.length > 0) {
       return this.http
-        .get(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
+        .get<searchResponse>(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
     } else {
       const $bSubject = new BehaviorSubject(null);
       $bSubject.next([]);

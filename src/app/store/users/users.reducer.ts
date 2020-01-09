@@ -1,0 +1,23 @@
+import {searchResponse} from '../../shared/Models/searchResponse.type';
+import * as UsersActions from './users.actions';
+
+const initialState: searchResponse = {
+  total_count: 0,
+  incomplete_results: false,
+  items: [],
+};
+
+
+export function usersReducer(state = initialState, action: UsersActions.UpdateSearchResponse) {
+  switch (action.type) {
+    case UsersActions.UPDATE_SEARCH_RESPONSE:
+      return {
+        ...state,
+        total_count: action.payload.total_count,
+        incomplete_results: action.payload.incomplete_results,
+        items: [...action.payload.items],
+      };
+    default:
+      return state;
+  }
+}

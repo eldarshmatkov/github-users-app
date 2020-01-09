@@ -1,6 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import * as UsersActions from '../store/users/users.actions';
+import {searchResponse} from '../shared/Models/searchResponse.type';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,15 +16,24 @@ export class DashboardComponent implements OnInit {
   usersPerPage = 10;
   searchByUser: string;
   paginationCurrentPage = 1;
-  users: any;
   isLoading = false;
 
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService,
+              private store: Store<{ usersResponse: searchResponse}>) {
   }
 
   ngOnInit() {
-
+    this.store.select('usersResponse').subscribe(
+  (data) => {
+    console.log(data, 'subscribe to searchResponse data');
+  },
+  (error => {console.log(error); })
+);
+    /*this.store.select('searchResponse').subscribe(
+      (data) => {console.log(data, 'subscribe to searchResponse data'); },
+      (error => {console.log(error); })
+    );*/
   }
 
   changePageEvent($event) {
@@ -47,7 +60,8 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.searchUsers(userName, usersPerPage, currentPage)
       .subscribe(
         data => {
-          this.users = data;
+          this.store.dispatch(new UsersActions.UpdateSearchResponse(data));
+          // this.users = data;
           this.paginationPanel.users = data;
           this.paginationPanel.setPage(currentPage);
         },
