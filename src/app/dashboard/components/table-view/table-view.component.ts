@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges, Output, EventEmitter, OnDestroy} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {searchResponse} from '../../../shared/Models/searchResponse.type';
 
@@ -8,7 +8,7 @@ import {searchResponse} from '../../../shared/Models/searchResponse.type';
   styleUrls: ['./table-view.component.scss']
 })
 
-export class TableViewComponent implements OnInit, OnDestroy {
+export class TableViewComponent implements OnInit {
   @Output() isLoading = new EventEmitter<boolean>();
   users: searchResponse;
 
