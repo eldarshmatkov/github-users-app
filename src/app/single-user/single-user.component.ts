@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-single-user',
@@ -10,8 +10,9 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class SingleUserComponent implements OnInit {
   state$: Observable<any>;
+  userData: any;
 
-  constructor(public activatedRoute: ActivatedRoute) {
+  constructor(public activatedRoute: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -20,7 +21,14 @@ export class SingleUserComponent implements OnInit {
     this.state$
       .subscribe((data) => {
         console.log(data.userData);
+        // if no user data passed, then go to main screen
+        if (!data.userData) {
+          this.goToMain();
+        }
+        this.userData = data.userData;
       });
   }
-
+  goToMain() {
+    this.router.navigate(['']);
+  }
 }
