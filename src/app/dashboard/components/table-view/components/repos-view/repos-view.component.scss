@@ -1,6 +1,12 @@
 .row {
   margin: 0;
   border-bottom: 1px solid #dee2e6;
+  background: #fff;
+  transition: all 0.2s linear;
+
+  &:hover {
+    background: antiquewhite;
+  }
 
   .col {
     display: flex;

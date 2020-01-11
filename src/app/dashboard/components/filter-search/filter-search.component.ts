@@ -8,7 +8,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
   styleUrls: ['./filter-search.component.scss']
 })
 export class FilterSearchComponent implements OnInit, OnDestroy {
-  searchByUser = '';
+  searchByUser = 'Coolio';
   @Output() searchByUserChange = new EventEmitter<string>();
   @ViewChild('userSearchInput') userSearchInput: ElementRef;
   $inputEvent: Subscription;

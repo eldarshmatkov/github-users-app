@@ -1,37 +1,39 @@
-  <div class="row">
-    <div class="col">
-      <div
-        (click)="expandRow(user.login)"
-        class="btn btn-warning mr-2">
-        <span>{{isExpanded ? '-' : '+'}}</span>
-      </div>
-      <img [src]="user.avatar_url">
-      <span>
+<div class="row">
+  <div class="user-btn"
+       (click)="goToUser()"></div>
+  <div class="col">
+    <div
+      (click)="expandRow(user.login)"
+      class="btn btn-warning mr-2 overflow">
+      <span>{{isExpanded ? '-' : '+'}}</span>
+    </div>
+    <img [src]="user.avatar_url">
+    <span>
         {{ user.login }}
       </span>
-    </div>
+  </div>
+  <div class="col">
+    <a [href]="user.html_url" target="_blank" class="overflow">
+      {{user.html_url}}
+    </a>
+  </div>
+</div>
+
+<div *ngIf="isExpanded && userRepos?.length !== 0; else noRepos">
+  <app-repos-view
+    (isLoading)="isLoading.emit($event)"
+    [userLogin]="user.login"
+    [repos]="repos"
+    *ngFor="let repos of userRepos">
+  </app-repos-view>
+</div>
+
+<ng-template #noRepos>
+  <div class="row" *ngIf="isExpanded">
     <div class="col">
-      <a [href]="user.html_url" target="_blank">
-        {{user.html_url}}
-      </a>
+      <p>
+        No repos available.
+      </p>
     </div>
   </div>
-
-  <div *ngIf="isExpanded && userRepos?.length !== 0; else noRepos">
-    <app-repos-view
-      (isLoading)="isLoading.emit($event)"
-      [userLogin]="user.login"
-      [repos]="repos"
-      *ngFor="let repos of userRepos">
-    </app-repos-view>
-  </div>
-
-  <ng-template #noRepos>
-    <div class="row" *ngIf="isExpanded">
-      <div class="col">
-        <p>
-          No repos available.
-        </p>
-      </div>
-    </div>
-  </ng-template>
+</ng-template>

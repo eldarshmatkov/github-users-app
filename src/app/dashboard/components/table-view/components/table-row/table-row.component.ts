@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-table-row',
@@ -12,7 +13,7 @@ export class TableRowComponent implements OnInit {
   userRepos: any;
   @Output() isLoading = new EventEmitter<boolean>();
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService, private router: Router) {
   }
 
   ngOnInit() {
@@ -36,4 +37,7 @@ export class TableRowComponent implements OnInit {
     this.isExpanded = !this.isExpanded;
   }
 
+  goToUser() {
+    this.router.navigateByUrl(`single-user/${this.user.login}`, {state: {userData: this.user}});
+  }
 }

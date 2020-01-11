@@ -3,6 +3,30 @@
   border-bottom: 1px solid #dee2e6;
   display: flex;
   align-items: center;
+  position: relative;
+  background: #fff;
+  transition: all 0.2s linear;
+
+
+  &:hover {
+    background: antiquewhite;
+  }
+
+  .overflow {
+    z-index: 2;
+    position: relative;
+  }
+
+  .user-btn {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+    cursor: pointer;
+  }
 
   img {
     width: 50px;
@@ -15,8 +39,9 @@
     &:first-child {
       flex: 2;
     }
+
     &:last-child {
-      flex: 2;
+      flex: 1;
     }
   }
 }
