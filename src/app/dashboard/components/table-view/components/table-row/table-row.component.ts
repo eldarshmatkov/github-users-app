@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 import {Router} from '@angular/router';
+import {reposResponse} from '../../../../../shared/models/reposResponse.type';
 
 @Component({
   selector: 'app-table-row',
@@ -10,7 +11,7 @@ import {Router} from '@angular/router';
 export class TableRowComponent implements OnInit {
   @Input() user;
   isExpanded = false;
-  userRepos: any;
+  userRepos: reposResponse;
   @Output() isLoading = new EventEmitter<boolean>();
 
   constructor(private dashboardService: DashboardService, private router: Router) {

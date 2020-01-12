@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
+import {reposResponse} from '../../../../../shared/models/reposResponse.type';
+import {commitsResponse} from '../../../../../shared/models/commitsResponse.type';
 
 @Component({
   selector: 'app-repos-view',
@@ -10,7 +12,7 @@ export class ReposViewComponent implements OnInit {
   @Input() isExpanded;
   @Input() repos;
   @Input() userLogin;
-  reposCommits: any;
+  reposCommits: commitsResponse;
   commitsExpanded = false;
   @Output() isLoading = new EventEmitter<boolean>();
 

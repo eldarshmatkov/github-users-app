@@ -20,7 +20,6 @@ export class SingleUserComponent implements OnInit {
       .pipe(map(() => window.history.state));
     this.state$
       .subscribe((data) => {
-        console.log(data.userData);
         // if no user data passed, then go to main screen
         if (!data.userData) {
           this.goToMain();

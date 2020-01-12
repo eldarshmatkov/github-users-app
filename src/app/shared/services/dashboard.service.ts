@@ -1,7 +1,10 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
+import {searchResponse} from '../models/searchResponse.type';
+import {reposResponse} from '../models/reposResponse.type';
+import {commitsResponse} from '../models/commitsResponse.type';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +17,22 @@ export class DashboardService {
   constructor(private http: HttpClient) {
   }
 
-  searchUsers(userName: string, usersPerPage: number, currentPage: number) {
+  searchUsers(userName: string, usersPerPage: number, currentPage: number): Observable<searchResponse> {
     if (userName.length > 0) {
       return this.http
-        .get(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
+        .get<searchResponse>(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
     } else {
-      const $bSubject = new BehaviorSubject(null);
-      $bSubject.next([]);
-      return $bSubject;
+      return new BehaviorSubject<searchResponse>({} as searchResponse);
     }
   }
 
-  fetchUserRepos(username: string) {
+  fetchUserRepos(username: string): Observable<reposResponse> {
     return this.http
-      .get(`${this.configUrl}users/${username}/repos`);
+      .get<reposResponse>(`${this.configUrl}users/${username}/repos`);
   }
 
-  fetchReposCommits(username: string, repo: string) {
+  fetchReposCommits(username: string, repo: string): Observable<commitsResponse> {
     return this.http
-      .get(`${this.configUrl}repos/${username}/${repo}/commits`);
+      .get<commitsResponse>(`${this.configUrl}repos/${username}/${repo}/commits`);
   }
 }
