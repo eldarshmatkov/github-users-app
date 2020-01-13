@@ -1,4 +1,5 @@
 import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angular/core';
+import {searchResponseUser} from '../../../shared/models/searchResponseUser.type';
 
 @Component({
   selector: 'app-table-view',
@@ -7,7 +8,7 @@ import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angula
 })
 
 export class TableViewComponent implements OnInit, OnChanges {
-  @Input() users;
+  @Input() users: searchResponseUser[];
   @Output() isLoading = new EventEmitter<boolean>();
 
   constructor() {

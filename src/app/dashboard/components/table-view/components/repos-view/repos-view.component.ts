@@ -9,9 +9,9 @@ import {commitsResponse} from '../../../../../shared/models/commitsResponse.type
   styleUrls: ['./repos-view.component.scss']
 })
 export class ReposViewComponent implements OnInit {
-  @Input() isExpanded;
-  @Input() repos;
-  @Input() userLogin;
+  @Input() isExpanded: boolean;
+  @Input() repos: reposResponse;
+  @Input() userLogin: string;
   reposCommits: commitsResponse;
   commitsExpanded = false;
   @Output() isLoading = new EventEmitter<boolean>();

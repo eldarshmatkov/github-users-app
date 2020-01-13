@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {commitsResponse} from '../../../../../shared/models/commitsResponse.type';
 
 @Component({
   selector: 'app-commits-view',
@@ -6,11 +7,10 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./commits-view.component.scss']
 })
 export class CommitsViewComponent implements OnInit {
-  @Input() commit;
+  @Input() commit: commitsResponse;
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }

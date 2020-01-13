@@ -24,23 +24,23 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  changePageEvent($event) {
+  changePageEvent($event): void {
     this.searchUsers(this.searchByUser, this.usersPerPage, $event);
   }
 
-  setUsersPerPage($event) {
+  setUsersPerPage($event): void {
     this.usersPerPage = $event;
     this.paginationCurrentPage = 1;
     this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  setSearchByUser($event) {
+  setSearchByUser($event): void {
     this.searchByUser = $event;
     this.paginationCurrentPage = 1;
     this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  searchUsers(userName: string, usersPerPage: number, currentPage: number) {
+  searchUsers(userName: string, usersPerPage: number, currentPage: number): boolean | void {
     if (!userName) {
       return false;
     }
