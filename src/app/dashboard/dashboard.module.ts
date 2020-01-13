@@ -12,7 +12,8 @@ import { CommitsViewComponent } from './components/table-view/components/commits
 import {SpinnerComponent} from '../shared/components/spinner/spinner.component';
 
 @NgModule({
-  declarations: [FilterSearchComponent, ShowRecordsComponent, TableViewComponent, PaginationPanelComponent, DashboardComponent, ReposViewComponent, TableRowComponent, CommitsViewComponent, SpinnerComponent],
+  declarations: [FilterSearchComponent, ShowRecordsComponent, TableViewComponent, PaginationPanelComponent,
+    DashboardComponent, ReposViewComponent, TableRowComponent, CommitsViewComponent, SpinnerComponent],
   imports: [
     CommonModule,
     FormsModule,

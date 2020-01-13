@@ -7,12 +7,14 @@ import {DashboardModule} from './dashboard/dashboard.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { SingleUserComponent } from './single-user/single-user.component';
 import {StoreModule} from '@ngrx/store';
 import {usersReducer} from './store/users/users.reducer';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SingleUserComponent,
   ],
   imports: [
     BrowserModule,

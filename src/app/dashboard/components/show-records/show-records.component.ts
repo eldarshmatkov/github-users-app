@@ -15,7 +15,7 @@ export class ShowRecordsComponent implements OnInit {
   ngOnInit() {
   }
 
-  setUserPerPage($event) {
+  setUserPerPage($event): void {
     this.usersPerPageChange.emit($event);
   }
 }

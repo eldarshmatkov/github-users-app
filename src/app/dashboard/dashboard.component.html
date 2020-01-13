@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <h1>Github Users App</h1>
 </div>
-<div class="is-loading-wrapper" [ngClass]="{active:isLoading}">
+<div class="is-loading-wrapper" [class.active]="isLoading">
   <app-filter-search (searchByUserChange)="setSearchByUser($event)"></app-filter-search>
   <app-show-records (usersPerPageChange)="setUsersPerPage($event)"></app-show-records>
   <app-table-view

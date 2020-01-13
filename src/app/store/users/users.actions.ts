@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {searchResponse} from '../../shared/Models/searchResponse.type';
+import {searchResponse} from '../../shared/models/searchResponse.type';
 
 export const UPDATE_SEARCH_RESPONSE = 'UPDATE_SEARCH_RESPONSE';
 

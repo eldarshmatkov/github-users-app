@@ -17,9 +17,9 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.$inputEvent = fromEvent(this.userSearchInput.nativeElement, 'keyup').pipe(
-      map((event: any) => {
-        return event.target.value;
+    this.$inputEvent = fromEvent<KeyboardEvent>(this.userSearchInput.nativeElement as HTMLInputElement, 'keyup').pipe(
+      map((event: KeyboardEvent) => {
+        return ((event.target as HTMLInputElement).value);
       }),
       debounceTime(700),
       distinctUntilChanged()
@@ -33,7 +33,7 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
     this.$inputEvent.unsubscribe();
   }
 
-  setSearchByUser($event) {
+  setSearchByUser($event): void {
     this.searchByUserChange.emit($event);
   }
 }

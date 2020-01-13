@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
+import {searchResponse} from '../shared/models/searchResponse.type';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
 import * as UsersActions from '../store/users/users.actions';
-import {searchResponse} from '../shared/Models/searchResponse.type';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +15,7 @@ export class DashboardComponent implements OnInit {
   usersPerPage = 10;
   searchByUser: string;
   paginationCurrentPage = 1;
+  users: searchResponse;
   isLoading = false;
 
 
@@ -36,23 +36,23 @@ export class DashboardComponent implements OnInit {
     );*/
   }
 
-  changePageEvent($event) {
+  changePageEvent($event): void {
     this.searchUsers(this.searchByUser, this.usersPerPage, $event);
   }
 
-  setUsersPerPage($event) {
+  setUsersPerPage($event): void {
     this.usersPerPage = $event;
     this.paginationCurrentPage = 1;
     this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  setSearchByUser($event) {
+  setSearchByUser($event): void {
     this.searchByUser = $event;
     this.paginationCurrentPage = 1;
     this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  searchUsers(userName: string, usersPerPage: number, currentPage: number) {
+  searchUsers(userName: string, usersPerPage: number, currentPage: number): boolean | void {
     if (!userName) {
       return false;
     }
