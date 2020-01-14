@@ -1,4 +1,4 @@
-export type searchResponseUser = {
+export interface SearchResponseUser {
   login: string;
   id: number;
   node_id: string;
@@ -18,4 +18,4 @@ export type searchResponseUser = {
   type: string;
   site_admin: boolean;
   score: number;
-};
+}

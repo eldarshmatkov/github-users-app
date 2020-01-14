@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 import {Router} from '@angular/router';
-import {reposResponse} from '../../../../../shared/models/reposResponse.type';
-import {searchResponseUser} from '../../../../../shared/models/searchResponseUser.type';
+import {ReposResponse} from '../../../../../shared/models/reposResponse.type';
+import {SearchResponseUser} from '../../../../../shared/models/searchResponseUser.type';
 
 @Component({
   selector: 'app-table-row',
@@ -10,9 +10,9 @@ import {searchResponseUser} from '../../../../../shared/models/searchResponseUse
   styleUrls: ['./table-row.component.scss']
 })
 export class TableRowComponent implements OnInit {
-  @Input() user: searchResponseUser;
+  @Input() user: SearchResponseUser;
   isExpanded = false;
-  userRepos: reposResponse;
+  userRepos: ReposResponse;
   @Output() isLoading = new EventEmitter<boolean>();
 
   constructor(private dashboardService: DashboardService, private router: Router) {

@@ -1,7 +1,7 @@
-import {searchResponseUser} from './searchResponseUser.type';
+import {SearchResponseUser} from './searchResponseUser.type';
 
-export type searchResponse = {
+export interface SearchResponse {
   total_count: number;
   incomplete_results: boolean;
-  items: searchResponseUser[];
-};
+  items: SearchResponseUser[];
+}

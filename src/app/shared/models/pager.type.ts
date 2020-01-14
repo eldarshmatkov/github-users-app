@@ -1,4 +1,4 @@
-export type pagerType = {
+export interface PagerType {
   totalItems: number;
   currentPage: number;
   pageSize: number;
@@ -9,5 +9,5 @@ export type pagerType = {
   endIndex: number;
   pages: number[];
   pageOffset: number;
-};
+}
 

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
-import {searchResponse} from '../shared/models/searchResponse.type';
+import {SearchResponse} from '../shared/models/searchResponse.type';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   usersPerPage = 10;
   searchByUser: string;
   paginationCurrentPage = 1;
-  users: searchResponse;
+  users: SearchResponse;
   isLoading = false;
 
 

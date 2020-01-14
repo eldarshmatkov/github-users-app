@@ -1,10 +1,9 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-import {searchResponse} from '../models/searchResponse.type';
-import {reposResponse} from '../models/reposResponse.type';
-import {commitsResponse} from '../models/commitsResponse.type';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {SearchResponse} from '../models/searchResponse.type';
+import {ReposResponse} from '../models/reposResponse.type';
+import {CommitsResponse} from '../models/commitsResponse.type';
 
 @Injectable({
   providedIn: 'root'
@@ -17,22 +16,22 @@ export class DashboardService {
   constructor(private http: HttpClient) {
   }
 
-  searchUsers(userName: string, usersPerPage: number, currentPage: number): Observable<searchResponse> {
+  searchUsers(userName: string, usersPerPage: number, currentPage: number): Observable<SearchResponse> {
     if (userName.length > 0) {
       return this.http
-        .get<searchResponse>(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
+        .get<SearchResponse>(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
     } else {
-      return new BehaviorSubject<searchResponse>({} as searchResponse);
+      return new BehaviorSubject<SearchResponse>({} as SearchResponse);
     }
   }
 
-  fetchUserRepos(username: string): Observable<reposResponse> {
+  fetchUserRepos(username: string): Observable<ReposResponse> {
     return this.http
-      .get<reposResponse>(`${this.configUrl}users/${username}/repos`);
+      .get<ReposResponse>(`${this.configUrl}users/${username}/repos`);
   }
 
-  fetchReposCommits(username: string, repo: string): Observable<commitsResponse> {
+  fetchReposCommits(username: string, repo: string): Observable<CommitsResponse> {
     return this.http
-      .get<commitsResponse>(`${this.configUrl}repos/${username}/${repo}/commits`);
+      .get<CommitsResponse>(`${this.configUrl}repos/${username}/${repo}/commits`);
   }
 }

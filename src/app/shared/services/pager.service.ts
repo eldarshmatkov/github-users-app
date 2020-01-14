@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {pagerType} from '../models/pager.type';
+import {PagerType} from '../models/pager.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PagerService {
-  getPager(totalItems: number, currentPage: number = 1, pageSize: number = 10): pagerType {
+  getPager(totalItems: number, currentPage: number = 1, pageSize: number = 10): PagerType {
     // calculate total pages
     const totalPages = Math.ceil(totalItems / pageSize);
     const pageOffset = (currentPage - 1) * pageSize;
