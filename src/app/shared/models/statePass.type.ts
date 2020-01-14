@@ -1,7 +1,7 @@
-import {searchResponseUser} from './searchResponseUser.type';
+import {SearchResponseUser} from './searchResponseUser.type';
 
-export interface statePass {
-  userData?: searchResponseUser;
+export interface StatePass {
+  userData?: SearchResponseUser;
   navigationId: number;
 }
 

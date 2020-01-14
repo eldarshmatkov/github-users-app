@@ -1,12 +1,12 @@
-import {searchResponseUser} from './searchResponseUser.type';
+import {SearchResponseUser} from './searchResponseUser.type';
 
-export type reposResponse = {
+export interface ReposResponse {
   id: number;
   node_id: string;
   name: string;
   full_name: string;
   private: boolean;
-  owner: searchResponseUser;
+  owner: SearchResponseUser;
   html_url: string;
   description: string;
   fork: boolean;
@@ -74,6 +74,6 @@ export type reposResponse = {
   open_issues: number;
   watchers: number;
   default_branch: string;
-};
+}
 
 

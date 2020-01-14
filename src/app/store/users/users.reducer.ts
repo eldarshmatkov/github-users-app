@@ -1,7 +1,7 @@
-import {searchResponse} from '../../shared/models/searchResponse.type';
+import {SearchResponse} from '../../shared/models/searchResponse.type';
 import * as UsersActions from './users.actions';
 
-const initialState: searchResponse = {
+const initialState: SearchResponse = {
   total_count: 0,
   incomplete_results: false,
   items: [],

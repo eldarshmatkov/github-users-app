@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
-import {searchResponseUser} from '../shared/models/searchResponseUser.type';
-import {statePass} from '../shared/models/statePass.type';
+import {SearchResponseUser} from '../shared/models/searchResponseUser.type';
+import {StatePass} from '../shared/models/statePass.type';
 
 @Component({
   selector: 'app-single-user',
@@ -11,8 +11,8 @@ import {statePass} from '../shared/models/statePass.type';
   styleUrls: ['./single-user.component.scss']
 })
 export class SingleUserComponent implements OnInit {
-  state$: Observable<statePass>;
-  userData: searchResponseUser;
+  state$: Observable<StatePass>;
+  userData: SearchResponseUser;
 
   constructor(public activatedRoute: ActivatedRoute, private router: Router) {
   }

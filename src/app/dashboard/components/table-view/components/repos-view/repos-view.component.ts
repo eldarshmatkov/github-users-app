@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
-import {reposResponse} from '../../../../../shared/models/reposResponse.type';
-import {commitsResponse} from '../../../../../shared/models/commitsResponse.type';
+import {ReposResponse} from '../../../../../shared/models/reposResponse.type';
+import {CommitsResponse} from '../../../../../shared/models/commitsResponse.type';
 
 @Component({
   selector: 'app-repos-view',
@@ -10,9 +10,9 @@ import {commitsResponse} from '../../../../../shared/models/commitsResponse.type
 })
 export class ReposViewComponent implements OnInit {
   @Input() isExpanded: boolean;
-  @Input() repos: reposResponse;
+  @Input() repos: ReposResponse;
   @Input() userLogin: string;
-  reposCommits: commitsResponse;
+  reposCommits: CommitsResponse;
   commitsExpanded = false;
   @Output() isLoading = new EventEmitter<boolean>();
 

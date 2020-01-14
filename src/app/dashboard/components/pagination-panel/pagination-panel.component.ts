@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {PagerService} from '../../../shared/services/pager.service';
-import {searchResponseUser} from '../../../shared/models/searchResponseUser.type';
-import {pagerType} from '../../../shared/models/pager.type';
+import {SearchResponse} from '../../../shared/models/searchResponse.type';
+import {SearchResponseUser} from '../../../shared/models/searchResponseUser.type';
+import {PagerType} from '../../../shared/models/pager.type';
 import {Store} from '@ngrx/store';
-import {searchResponse} from '../../../shared/models/searchResponse.type';
 
 @Component({
   selector: 'app-pagination-panel',
@@ -11,14 +11,14 @@ import {searchResponse} from '../../../shared/models/searchResponse.type';
   styleUrls: ['./pagination-panel.component.scss']
 })
 export class PaginationPanelComponent implements OnInit, OnChanges {
-  users: searchResponse;
+  users: SearchResponse;
   @Input() usersPerPage: number;
   @Input() shouldShow: boolean;
-  pager: pagerType;
-  pagedItems: searchResponseUser[];
+  pager: PagerType;
+  pagedItems: SearchResponseUser[];
   @Output() changePageEmitter = new EventEmitter<number>();
 
-  constructor(private pagerService: PagerService, private store: Store<{ usersResponse: searchResponse}>) {
+  constructor(private pagerService: PagerService, private store: Store<{ usersResponse: SearchResponse}>) {
   }
 
   ngOnChanges() {
