@@ -4,6 +4,7 @@ import {PaginationPanelComponent} from './components/pagination-panel/pagination
 import {SearchResponse} from '../shared/models/searchResponse.type';
 import {Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
+import {AppData} from '../shared/models/app-data.type';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,35 +21,38 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(private dashboardService: DashboardService,
-              private store: Store<{ usersResponse: SearchResponse}>) {
+              private store: Store<{ usersResponse: SearchResponse, appData: AppData }>) {
   }
 
   ngOnInit() {
     this.store.select('usersResponse').subscribe(
-  (data) => {
-    console.log(data, 'subscribe to searchResponse data');
-  },
-  (error => {console.log(error); })
-);
-    /*this.store.select('searchResponse').subscribe(
-      (data) => {console.log(data, 'subscribe to searchResponse data'); },
-      (error => {console.log(error); })
-    );*/
+      (data) => {
+        console.log(data, 'subscribe to searchResponse data');
+      },
+      (error => {
+        console.log(error);
+      })
+    );
+    this.store.select('appData').subscribe(
+      (data) => {
+        console.log(data, 'subscribe to appData');
+        this.searchByUser = data.searchField ? data.searchField : this.searchByUser;
+        this.usersPerPage = data.usersPerPage ? data.usersPerPage : this.usersPerPage;
+        this.paginationCurrentPage = data.currentPage ? data.currentPage : this.paginationCurrentPage;
+
+        this.callSearchUsers();
+      },
+      (error => {
+        console.log(error);
+      })
+    );
   }
 
   changePageEvent($event): void {
     this.searchUsers(this.searchByUser, this.usersPerPage, $event);
   }
 
-  setUsersPerPage($event): void {
-    this.usersPerPage = $event;
-    this.paginationCurrentPage = 1;
-    this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
-  }
-
-  setSearchByUser($event): void {
-    this.searchByUser = $event;
-    this.paginationCurrentPage = 1;
+  callSearchUsers(): void {
     this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
@@ -61,7 +65,6 @@ export class DashboardComponent implements OnInit {
       .subscribe(
         data => {
           this.store.dispatch(new UsersActions.UpdateSearchResponse(data));
-          // this.users = data;
           this.paginationPanel.users = data;
           this.paginationPanel.setPage(currentPage);
         },

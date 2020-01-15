@@ -4,6 +4,8 @@ import {SearchResponse} from '../../../shared/models/searchResponse.type';
 import {SearchResponseUser} from '../../../shared/models/searchResponseUser.type';
 import {PagerType} from '../../../shared/models/pager.type';
 import {Store} from '@ngrx/store';
+import * as AppDataActions from '../../../store/app-data/app-data.actions';
+import {AppData} from '../../../shared/models/app-data.type';
 
 @Component({
   selector: 'app-pagination-panel',
@@ -12,13 +14,11 @@ import {Store} from '@ngrx/store';
 })
 export class PaginationPanelComponent implements OnInit, OnChanges {
   users: SearchResponse;
-  @Input() usersPerPage: number;
-  @Input() shouldShow: boolean;
+  usersPerPage: number;
   pager: PagerType;
   pagedItems: SearchResponseUser[];
-  @Output() changePageEmitter = new EventEmitter<number>();
 
-  constructor(private pagerService: PagerService, private store: Store<{ usersResponse: SearchResponse}>) {
+  constructor(private pagerService: PagerService, private store: Store<{ usersResponse: SearchResponse, appData: AppData }>) {
   }
 
   ngOnChanges() {
@@ -30,19 +30,29 @@ export class PaginationPanelComponent implements OnInit, OnChanges {
         this.users = data;
       },
       (error => {
-        console.log(error); })
+        console.log(error);
+      })
+    );
+    this.store.select('appData').subscribe(
+      (data) => {
+        console.log(data, 'subscribe to appData');
+        this.usersPerPage = data.usersPerPage ? data.usersPerPage : this.usersPerPage;
+      },
+      (error => {
+        console.log(error);
+      })
     );
   }
 
   changePage(page: number): void {
-    this.changePageEmitter.emit(page);
+    this.store.dispatch(new AppDataActions.UpdateAppData({currentPage: page}));
   }
 
   setPage(page: number): void {
-      // get pager object from service
-      this.pager = this.pagerService.getPager(this.users.total_count, page, this.usersPerPage);
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.users.total_count, page, this.usersPerPage);
 
-      // get current page of items
-      this.pagedItems = this.users.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    // get current page of items
+    this.pagedItems = this.users.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 }

@@ -10,6 +10,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SingleUserComponent } from './single-user/single-user.component';
 import {StoreModule} from '@ngrx/store';
 import {usersReducer} from './store/users/users.reducer';
+import {appDataReducer} from './store/app-data/app-data.reducer';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import {usersReducer} from './store/users/users.reducer';
     AppRoutingModule,
     DashboardModule,
     NoopAnimationsModule,
-    StoreModule.forRoot({usersResponse: usersReducer}),
+    StoreModule.forRoot({usersResponse: usersReducer, appData: appDataReducer}),
     HttpClientModule,
     NgbModule,
   ],

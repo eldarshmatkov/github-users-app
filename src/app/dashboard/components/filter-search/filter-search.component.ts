@@ -1,6 +1,10 @@
-import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {fromEvent, Observable, Subscription} from 'rxjs';
+import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {fromEvent, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {SearchResponse} from '../../../shared/models/searchResponse.type';
+import {AppData} from '../../../shared/models/app-data.type';
+import * as AppDataActions from '../../../store/app-data/app-data.actions'
 
 @Component({
   selector: 'app-filter-search',
@@ -9,11 +13,10 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 })
 export class FilterSearchComponent implements OnInit, OnDestroy {
   searchByUser = '';
-  @Output() searchByUserChange = new EventEmitter<string>();
   @ViewChild('userSearchInput') userSearchInput: ElementRef;
   $inputEvent: Subscription;
 
-  constructor() {
+  constructor(private store: Store<{ usersResponse: SearchResponse, appData: AppData }>) {
   }
 
   ngOnInit() {
@@ -34,6 +37,6 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
   }
 
   setSearchByUser($event): void {
-    this.searchByUserChange.emit($event);
+    this.store.dispatch(new AppDataActions.UpdateAppData({searchField: $event}));
   }
 }

@@ -2,12 +2,10 @@
   <h1>Github Users App</h1>
 </div>
 <div class="is-loading-wrapper" [class.active]="isLoading">
-  <app-filter-search (searchByUserChange)="setSearchByUser($event)"></app-filter-search>
-  <app-show-records (usersPerPageChange)="setUsersPerPage($event)"></app-show-records>
+  <app-filter-search></app-filter-search>
+  <app-show-records></app-show-records>
   <app-table-view
     (isLoading)="isLoading = $event"></app-table-view>
-  <app-pagination-panel
-    [usersPerPage]="usersPerPage"
-    (changePageEmitter)="changePageEvent($event)"></app-pagination-panel>
+  <app-pagination-panel></app-pagination-panel>
 </div>
 <app-spinner *ngIf="isLoading"></app-spinner>

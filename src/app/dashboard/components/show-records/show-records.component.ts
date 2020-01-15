@@ -1,4 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import * as AppDataActions from '../../../store/app-data/app-data.actions'
+import {SearchResponse} from '../../../shared/models/searchResponse.type';
+import {AppData} from '../../../shared/models/app-data.type';
 
 @Component({
   selector: 'app-show-records',
@@ -7,15 +11,14 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class ShowRecordsComponent implements OnInit {
   usersPerPage = 10;
-  @Output() usersPerPageChange = new EventEmitter<number>();
   usersPerPageOptions: number[] = [5, 10, 20, 40, 80];
 
-  constructor() { }
+  constructor(private store: Store<{ usersResponse: SearchResponse, appData: AppData }>) { }
 
   ngOnInit() {
   }
 
   setUserPerPage($event): void {
-    this.usersPerPageChange.emit($event);
+    this.store.dispatch(new AppDataActions.UpdateAppData({usersPerPage: $event}))
   }
 }
