@@ -6,6 +6,7 @@ import {PagerType} from '../../../shared/models/pager.type';
 import {Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {AppData} from '../../../shared/models/app-data.type';
+import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 
 @Component({
   selector: 'app-pagination-panel',
@@ -18,7 +19,7 @@ export class PaginationPanelComponent implements OnInit, OnChanges {
   pager: PagerType;
   pagedItems: SearchResponseUser[];
 
-  constructor(private pagerService: PagerService, private store: Store<{ usersResponse: SearchResponse, appData: AppData }>) {
+  constructor(private pagerService: PagerService, private store: Store<StoreRootObject>) {
   }
 
   ngOnChanges() {

@@ -2,9 +2,8 @@ import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild} from '@angu
 import {fromEvent, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import {SearchResponse} from '../../../shared/models/searchResponse.type';
-import {AppData} from '../../../shared/models/app-data.type';
 import * as AppDataActions from '../../../store/app-data/app-data.actions'
+import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 
 @Component({
   selector: 'app-filter-search',
@@ -12,11 +11,11 @@ import * as AppDataActions from '../../../store/app-data/app-data.actions'
   styleUrls: ['./filter-search.component.scss']
 })
 export class FilterSearchComponent implements OnInit, OnDestroy {
-  searchByUser = '';
+  searchByUser = 'Stoya';
   @ViewChild('userSearchInput') userSearchInput: ElementRef;
   $inputEvent: Subscription;
 
-  constructor(private store: Store<{ usersResponse: SearchResponse, appData: AppData }>) {
+  constructor(private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {

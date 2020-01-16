@@ -1,44 +1,38 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
 import {SearchResponse} from '../shared/models/searchResponse.type';
 import {Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
 import {AppData} from '../shared/models/app-data.type';
+import {StoreRootObject} from '../shared/models/storeRootObject.type';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild(PaginationPanelComponent) paginationPanel: PaginationPanelComponent;
   usersPerPage = 10;
   searchByUser: string;
   paginationCurrentPage = 1;
-  users: SearchResponse;
   isLoading = false;
-
+  storeSubscription: Subscription;
 
   constructor(private dashboardService: DashboardService,
-              private store: Store<{ usersResponse: SearchResponse, appData: AppData }>) {
+              private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.store.select('usersResponse').subscribe(
-      (data) => {
-        console.log(data, 'subscribe to searchResponse data');
-      },
-      (error => {
-        console.log(error);
-      })
-    );
-    this.store.select('appData').subscribe(
+    this.storeSubscription = this.store.select('appData').subscribe(
       (data) => {
         console.log(data, 'subscribe to appData');
         this.searchByUser = data.searchField ? data.searchField : this.searchByUser;
         this.usersPerPage = data.usersPerPage ? data.usersPerPage : this.usersPerPage;
         this.paginationCurrentPage = data.currentPage ? data.currentPage : this.paginationCurrentPage;
+        this.isLoading = data.isLoading ? data.isLoading : this.isLoading;
 
         this.callSearchUsers();
       },
@@ -48,8 +42,8 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  changePageEvent($event): void {
-    this.searchUsers(this.searchByUser, this.usersPerPage, $event);
+  ngOnDestroy(): void {
+    this.storeSubscription.unsubscribe();
   }
 
   callSearchUsers(): void {

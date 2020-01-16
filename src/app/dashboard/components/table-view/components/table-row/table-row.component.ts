@@ -3,6 +3,8 @@ import {DashboardService} from '../../../../../shared/services/dashboard.service
 import {Router} from '@angular/router';
 import {ReposResponse} from '../../../../../shared/models/reposResponse.type';
 import {SearchResponseUser} from '../../../../../shared/models/searchResponseUser.type';
+import {StoreRootObject} from '../../../../../shared/models/storeRootObject.type';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-table-row',
@@ -15,7 +17,9 @@ export class TableRowComponent implements OnInit {
   userRepos: ReposResponse;
   @Output() isLoading = new EventEmitter<boolean>();
 
-  constructor(private dashboardService: DashboardService, private router: Router) {
+  constructor(private dashboardService: DashboardService,
+              private router: Router,
+              private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {

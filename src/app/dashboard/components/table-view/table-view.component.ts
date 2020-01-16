@@ -1,8 +1,7 @@
 import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angular/core';
 import {SearchResponseUser} from '../../../shared/models/searchResponseUser.type';
 import {Store} from '@ngrx/store';
-import {SearchResponse} from '../../../shared/models/searchResponse.type';
-import {AppData} from '../../../shared/models/app-data.type';
+import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 
 @Component({
   selector: 'app-table-view',
@@ -14,11 +13,12 @@ export class TableViewComponent implements OnInit {
   @Output() isLoading = new EventEmitter<boolean>();
   users: SearchResponseUser[];
 
-  constructor(private store: Store<{ usersResponse: SearchResponse, appData: AppData }>) {}
+  constructor(private store: Store<StoreRootObject>) {}
 
   ngOnInit() {
     this.store.select('usersResponse').subscribe(
       (data) => {
+        console.log(this.users, 'usersResponse from table-view');
         this.users = data.items;
       },
       (error => {

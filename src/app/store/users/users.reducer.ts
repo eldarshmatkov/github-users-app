@@ -8,7 +8,7 @@ const initialState: SearchResponse = {
 };
 
 
-export function usersReducer(state = initialState, action: UsersActions.UpdateSearchResponse) {
+export function usersReducer(state = initialState, action: UsersActions.UpdateSearchResponse): SearchResponse {
   switch (action.type) {
     case UsersActions.UPDATE_SEARCH_RESPONSE:
       return {
