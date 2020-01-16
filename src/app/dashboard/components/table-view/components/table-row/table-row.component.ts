@@ -5,6 +5,7 @@ import {ReposResponse} from '../../../../../shared/models/reposResponse.type';
 import {SearchResponseUser} from '../../../../../shared/models/searchResponseUser.type';
 import {StoreRootObject} from '../../../../../shared/models/storeRootObject.type';
 import {Store} from '@ngrx/store';
+import * as AppNotificationsActions from '../../../../../store/app-notifications/app-notifications.actions';
 
 @Component({
   selector: 'app-table-row',
@@ -15,7 +16,6 @@ export class TableRowComponent implements OnInit {
   @Input() user: SearchResponseUser;
   isExpanded = false;
   userRepos: ReposResponse;
-  @Output() isLoading = new EventEmitter<boolean>();
 
   constructor(private dashboardService: DashboardService,
               private router: Router,
@@ -27,15 +27,15 @@ export class TableRowComponent implements OnInit {
 
   expandRow(username: string) {
     if (!this.isExpanded) {
-      this.isLoading.emit(true);
+      this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
       this.dashboardService.fetchUserRepos(username)
         .subscribe(
           data => {
             this.userRepos = data;
           },
-          err => this.isLoading.emit(false),
+          err => this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false})),
           () => {
-            this.isLoading.emit(false);
+            this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
           }
         );
     }

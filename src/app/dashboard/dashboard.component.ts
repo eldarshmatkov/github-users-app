@@ -1,10 +1,8 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
-import {SearchResponse} from '../shared/models/searchResponse.type';
 import {Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
-import {AppData} from '../shared/models/app-data.type';
 import {StoreRootObject} from '../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
 
@@ -15,26 +13,36 @@ import {Subscription} from 'rxjs';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild(PaginationPanelComponent) paginationPanel: PaginationPanelComponent;
-  usersPerPage = 10;
+  usersPerPage: number;
   searchByUser: string;
   paginationCurrentPage = 1;
   isLoading = false;
-  storeSubscription: Subscription;
+  appDataSubscription: Subscription;
+  notificationsSubscription: Subscription;
 
   constructor(private dashboardService: DashboardService,
               private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.storeSubscription = this.store.select('appData').subscribe(
+    this.appDataSubscription = this.store.select('appData').subscribe(
       (data) => {
         console.log(data, 'subscribe to appData');
         this.searchByUser = data.searchField ? data.searchField : this.searchByUser;
         this.usersPerPage = data.usersPerPage ? data.usersPerPage : this.usersPerPage;
         this.paginationCurrentPage = data.currentPage ? data.currentPage : this.paginationCurrentPage;
-        this.isLoading = data.isLoading ? data.isLoading : this.isLoading;
 
         this.callSearchUsers();
+      },
+      (error => {
+        console.log(error);
+      })
+    );
+
+    this.notificationsSubscription = this.store.select('appNotifications').subscribe(
+      (data) => {
+        console.log(data, 'subscribe to Notifications');
+        this.isLoading = data.isLoading;
       },
       (error => {
         console.log(error);
@@ -43,7 +51,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.storeSubscription.unsubscribe();
+    this.appDataSubscription.unsubscribe();
   }
 
   callSearchUsers(): void {

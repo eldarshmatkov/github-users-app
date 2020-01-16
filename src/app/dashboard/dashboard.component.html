@@ -4,8 +4,7 @@
 <div class="is-loading-wrapper" [class.active]="isLoading">
   <app-filter-search></app-filter-search>
   <app-show-records></app-show-records>
-  <app-table-view
-    (isLoading)="isLoading = $event"></app-table-view>
+  <app-table-view></app-table-view>
   <app-pagination-panel></app-pagination-panel>
 </div>
 <app-spinner *ngIf="isLoading"></app-spinner>

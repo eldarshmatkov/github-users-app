@@ -10,7 +10,6 @@ import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 })
 
 export class TableViewComponent implements OnInit {
-  @Output() isLoading = new EventEmitter<boolean>();
   users: SearchResponseUser[];
 
   constructor(private store: Store<StoreRootObject>) {}

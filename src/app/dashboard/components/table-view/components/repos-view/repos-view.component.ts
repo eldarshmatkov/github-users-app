@@ -2,6 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 import {ReposResponse} from '../../../../../shared/models/reposResponse.type';
 import {CommitsResponse} from '../../../../../shared/models/commitsResponse.type';
+import * as AppNotificationsActions from '../../../../../store/app-notifications/app-notifications.actions';
+import {StoreRootObject} from '../../../../../shared/models/storeRootObject.type';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-repos-view',
@@ -14,24 +17,24 @@ export class ReposViewComponent implements OnInit {
   @Input() userLogin: string;
   reposCommits: CommitsResponse;
   commitsExpanded = false;
-  @Output() isLoading = new EventEmitter<boolean>();
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(private dashboardService: DashboardService,
+              private store: Store<StoreRootObject>) { }
 
   ngOnInit() {
   }
 
   expandRow() {
     if (!this.commitsExpanded) {
-      this.isLoading.emit(true);
+      this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
       this.dashboardService.fetchReposCommits(this.userLogin, this.repos.name)
         .subscribe(
           data => {
             this.reposCommits = data;
           },
-          err => this.isLoading.emit(false),
+          err => this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false})),
           () => {
-            this.isLoading.emit(false);
+            this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
           }
         );
     }

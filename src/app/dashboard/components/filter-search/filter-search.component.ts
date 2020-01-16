@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild} from '@angu
 import {fromEvent, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import * as AppDataActions from '../../../store/app-data/app-data.actions'
+import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 
 @Component({
