@@ -11,7 +11,7 @@ import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
   styleUrls: ['./filter-search.component.scss']
 })
 export class FilterSearchComponent implements OnInit, OnDestroy {
-  searchByUser = 'Stoya';
+  searchByUser = '';
   @ViewChild('userSearchInput') userSearchInput: ElementRef;
   $inputEvent: Subscription;
 
