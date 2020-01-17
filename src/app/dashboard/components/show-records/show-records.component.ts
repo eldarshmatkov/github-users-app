@@ -18,6 +18,9 @@ export class ShowRecordsComponent implements OnInit {
   }
 
   setUserPerPage($event): void {
-    this.store.dispatch(new AppDataActions.UpdateAppData({usersPerPage: $event}))
+    // reset page number
+    this.store.dispatch(new AppDataActions.SetCurrentPage({currentPage: 1}));
+    // set users per page
+    this.store.dispatch(new AppDataActions.SetUsersPerPage({usersPerPage: $event}));
   }
 }

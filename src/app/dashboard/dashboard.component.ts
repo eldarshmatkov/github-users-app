@@ -28,9 +28,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.appDataSubscription = this.store.select('appData').subscribe(
       (data) => {
         console.log(data, 'subscribe to appData');
-        this.searchByUser = data.searchField ? data.searchField : this.searchByUser;
-        this.usersPerPage = data.usersPerPage ? data.usersPerPage : this.usersPerPage;
-        this.paginationCurrentPage = data.currentPage ? data.currentPage : this.paginationCurrentPage;
+        this.searchByUser = data.searchField;
+        this.usersPerPage = data.usersPerPage;
+        this.paginationCurrentPage = data.currentPage;
 
         this.callSearchUsers();
       },
@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.appDataSubscription.unsubscribe();
+    this.notificationsSubscription.unsubscribe();
   }
 
   callSearchUsers(): void {

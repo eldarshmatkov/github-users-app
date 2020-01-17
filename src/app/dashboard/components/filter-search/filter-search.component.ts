@@ -36,6 +36,9 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
   }
 
   setSearchByUser($event): void {
-    this.store.dispatch(new AppDataActions.UpdateAppData({searchField: $event}));
+    // reset page number
+    this.store.dispatch(new AppDataActions.SetCurrentPage({currentPage: 1}));
+    // search by user
+    this.store.dispatch(new AppDataActions.SearchUser({searchField: $event}));
   }
 }

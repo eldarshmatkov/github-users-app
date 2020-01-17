@@ -1,23 +1,25 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {PagerService} from '../../../shared/services/pager.service';
 import {SearchResponse} from '../../../shared/models/searchResponse.type';
 import {SearchResponseUser} from '../../../shared/models/searchResponseUser.type';
 import {PagerType} from '../../../shared/models/pager.type';
 import {Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
-import {AppData} from '../../../shared/models/app-data.type';
 import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-pagination-panel',
   templateUrl: './pagination-panel.component.html',
   styleUrls: ['./pagination-panel.component.scss']
 })
-export class PaginationPanelComponent implements OnInit, OnChanges {
+export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
   users: SearchResponse;
   usersPerPage: number;
   pager: PagerType;
   pagedItems: SearchResponseUser[];
+  userResponseSubscription: Subscription;
+  appDataSubscription: Subscription;
 
   constructor(private pagerService: PagerService, private store: Store<StoreRootObject>) {
   }
@@ -25,8 +27,13 @@ export class PaginationPanelComponent implements OnInit, OnChanges {
   ngOnChanges() {
   }
 
+  ngOnDestroy(): void {
+    this.userResponseSubscription.unsubscribe();
+    this.appDataSubscription.unsubscribe();
+  }
+
   ngOnInit() {
-    this.store.select('usersResponse').subscribe(
+    this.userResponseSubscription = this.store.select('usersResponse').subscribe(
       (data) => {
         this.users = data;
       },
@@ -34,7 +41,7 @@ export class PaginationPanelComponent implements OnInit, OnChanges {
         console.log(error);
       })
     );
-    this.store.select('appData').subscribe(
+    this.appDataSubscription = this.store.select('appData').subscribe(
       (data) => {
         console.log(data, 'subscribe to appData');
         this.usersPerPage = data.usersPerPage ? data.usersPerPage : this.usersPerPage;
@@ -46,7 +53,7 @@ export class PaginationPanelComponent implements OnInit, OnChanges {
   }
 
   changePage(page: number): void {
-    this.store.dispatch(new AppDataActions.UpdateAppData({currentPage: page}));
+    this.store.dispatch(new AppDataActions.SetCurrentPage({currentPage: page}));
   }
 
   setPage(page: number): void {
