@@ -19,7 +19,6 @@ export class TableViewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.usersResponseSubscription = this.store.select('usersResponse').subscribe(
       (data) => {
-        console.log(this.users, 'usersResponse from table-view');
         this.users = data.items;
       },
       (error => {

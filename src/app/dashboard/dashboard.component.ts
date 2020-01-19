@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
 import {StoreRootObject} from '../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
+import {debounceTime, take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,15 +20,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isLoading = false;
   appDataSubscription: Subscription;
   notificationsSubscription: Subscription;
+  searchUsersSubscriptions: Subscription;
 
   constructor(private dashboardService: DashboardService,
               private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.appDataSubscription = this.store.select('appData').subscribe(
+    this.appDataSubscription = this.store.select('appData')
+      .pipe(debounceTime(700))
+      .subscribe(
       (data) => {
-        console.log(data, 'subscribe to appData');
         this.searchByUser = data.searchField;
         this.usersPerPage = data.usersPerPage;
         this.paginationCurrentPage = data.currentPage;
@@ -41,7 +44,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.notificationsSubscription = this.store.select('appNotifications').subscribe(
       (data) => {
-        console.log(data, 'subscribe to Notifications');
         this.isLoading = data.isLoading;
       },
       (error => {
@@ -53,6 +55,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.appDataSubscription.unsubscribe();
     this.notificationsSubscription.unsubscribe();
+    this.searchUsersSubscriptions.unsubscribe();
   }
 
   callSearchUsers(): void {
@@ -64,7 +67,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return false;
     }
     this.isLoading = true;
-    this.dashboardService.searchUsers(userName, usersPerPage, currentPage)
+    this.searchUsersSubscriptions = this.dashboardService.searchUsers(userName, usersPerPage, currentPage)
       .subscribe(
         data => {
           this.store.dispatch(new UsersActions.UpdateSearchResponse(data));

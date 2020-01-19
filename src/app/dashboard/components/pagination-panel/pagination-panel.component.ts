@@ -7,6 +7,7 @@ import {Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-pagination-panel',
@@ -41,10 +42,11 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
         console.log(error);
       })
     );
-    this.appDataSubscription = this.store.select('appData').subscribe(
+    this.appDataSubscription = this.store.select('appData')
+      .pipe(take(1))
+      .subscribe(
       (data) => {
-        console.log(data, 'subscribe to appData');
-        this.usersPerPage = data.usersPerPage ? data.usersPerPage : this.usersPerPage;
+        this.usersPerPage = data.usersPerPage;
       },
       (error => {
         console.log(error);
