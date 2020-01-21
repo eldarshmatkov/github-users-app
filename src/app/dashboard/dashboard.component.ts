@@ -5,7 +5,7 @@ import {Action, ActionsSubject, select, Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
 import {StoreRootObject} from '../shared/models/storeRootObject.type';
 import {Subject, Subscription} from 'rxjs';
-import {debounceTime, take} from 'rxjs/operators';
+import {debounceTime} from 'rxjs/operators';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
 import {selectorAppNotifications} from '../store/app-notifications/app-notifications.selectors';
 import {UsersEffects} from '../store/users/users.effects';
@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isLoading = false;
   appDataSubscription: Subscription;
   notificationsSubscription: Subscription;
+  usersEffectSubscription: Subscription;
 
   constructor(private dashboardService: DashboardService,
               private store: Store<StoreRootObject>,
@@ -55,7 +56,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })
       );
 
-    this.usersEffects.loadUsers$
+    this.usersEffectSubscription = this.usersEffects.loadUsers$
       .subscribe(data => {
         this.paginationPanel.users = data.payload;
         this.paginationPanel.setPage(this.paginationCurrentPage);
@@ -66,6 +67,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.appDataSubscription.unsubscribe();
     this.notificationsSubscription.unsubscribe();
+    this.usersEffectSubscription.unsubscribe();
   }
 
   callSearchUsers(): void {

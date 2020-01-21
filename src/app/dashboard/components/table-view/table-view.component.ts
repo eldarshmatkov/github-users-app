@@ -15,18 +15,21 @@ export class TableViewComponent implements OnInit, OnDestroy {
   users: SearchResponseUser[];
   usersResponseSubscription: Subscription;
 
-  constructor(private store: Store<StoreRootObject>) {}
+  constructor(private store: Store<StoreRootObject>) {
+  }
 
   ngOnInit() {
     this.usersResponseSubscription = this.store.pipe(select(selectorUsersResponse))
       .subscribe(
-      (data) => {
-        this.users = data.items;
-      },
-      (error => {
-        console.log(error); })
-    );
+        (data) => {
+          this.users = data.items;
+        },
+        (error => {
+          console.log(error);
+        })
+      );
   }
+
   ngOnDestroy(): void {
     this.usersResponseSubscription.unsubscribe();
   }
