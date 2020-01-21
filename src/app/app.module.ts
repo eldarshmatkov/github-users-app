@@ -10,6 +10,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SingleUserComponent } from './single-user/single-user.component';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './store/storeRootObject';
+import {EffectsModule} from '@ngrx/effects';
+import {UsersEffects} from './store/users/users.effects';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import {reducers} from './store/storeRootObject';
     StoreModule.forRoot(reducers),
     HttpClientModule,
     NgbModule,
+    EffectsModule.forRoot([UsersEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

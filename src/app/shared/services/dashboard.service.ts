@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {SearchResponse} from '../models/searchResponse.type';
 import {ReposResponse} from '../models/reposResponse.type';
 import {CommitsResponse} from '../models/commitsResponse.type';
+import {AppData} from '../models/app-data.type';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,10 @@ export class DashboardService {
   constructor(private http: HttpClient) {
   }
 
-  searchUsers(userName: string, usersPerPage: number, currentPage: number): Observable<SearchResponse> {
-    if (userName.length > 0) {
+  searchUsers(appData: AppData): Observable<SearchResponse> {
+    if (appData.searchField.length > 0) {
       return this.http
-        .get<SearchResponse>(`${this.configUrl}search/users?q=${userName}&per_page=${usersPerPage}&page=${currentPage}`);
+        .get<SearchResponse>(`${this.configUrl}search/users?q=${appData.searchField}&per_page=${appData.usersPerPage}&page=${appData.currentPage}`);
     } else {
       return new BehaviorSubject<SearchResponse>({} as SearchResponse);
     }

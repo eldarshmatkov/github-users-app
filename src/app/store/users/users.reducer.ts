@@ -8,9 +8,9 @@ const initialState: SearchResponse = {
 };
 
 
-export function usersReducer(state = initialState, action: UsersActions.UpdateSearchResponse): SearchResponse {
+export function usersReducer(state = initialState, action: UsersActions.UsersLoaded): SearchResponse {
   switch (action.type) {
-    case UsersActions.UPDATE_SEARCH_RESPONSE:
+    case UsersActions.USERS_LOADED:
       return {
         ...state,
         total_count: action.payload.total_count,

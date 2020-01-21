@@ -1,13 +1,14 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
-import {select, Store} from '@ngrx/store';
+import {Action, ActionsSubject, select, Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
 import {StoreRootObject} from '../shared/models/storeRootObject.type';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {debounceTime, take} from 'rxjs/operators';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
 import {selectorAppNotifications} from '../store/app-notifications/app-notifications.selectors';
+import {UsersEffects} from '../store/users/users.effects';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,65 +23,60 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isLoading = false;
   appDataSubscription: Subscription;
   notificationsSubscription: Subscription;
-  searchUsersSubscriptions: Subscription;
 
   constructor(private dashboardService: DashboardService,
-              private store: Store<StoreRootObject>) {
+              private store: Store<StoreRootObject>,
+              private usersEffects: UsersEffects) {
   }
 
   ngOnInit() {
     this.appDataSubscription = this.store.pipe(select(selectorAppData))
       .pipe(debounceTime(700))
       .subscribe(
-      (data) => {
-        this.searchByUser = data.searchField;
-        this.usersPerPage = data.usersPerPage;
-        this.paginationCurrentPage = data.currentPage;
+        (data) => {
+          this.searchByUser = data.searchField;
+          this.usersPerPage = data.usersPerPage;
+          this.paginationCurrentPage = data.currentPage;
 
-        this.callSearchUsers();
-      },
-      (error => {
-        console.log(error);
-      })
-    );
+          this.callSearchUsers();
+        },
+        (error => {
+          console.log(error);
+        })
+      );
 
     this.notificationsSubscription = this.store.pipe(select(selectorAppNotifications))
       .subscribe(
-      (data) => {
-        this.isLoading = data.isLoading;
-      },
-      (error => {
-        console.log(error);
-      })
-    );
+        (data) => {
+          this.isLoading = data.isLoading;
+        },
+        (error => {
+          console.log(error);
+        })
+      );
+
+    this.usersEffects.loadUsers$
+      .subscribe(data => {
+        this.paginationPanel.users = data.payload;
+        this.paginationPanel.setPage(this.paginationCurrentPage);
+        this.isLoading = false;
+      });
   }
 
   ngOnDestroy(): void {
     this.appDataSubscription.unsubscribe();
     this.notificationsSubscription.unsubscribe();
-    this.searchUsersSubscriptions.unsubscribe();
   }
 
   callSearchUsers(): void {
     this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
   }
 
-  searchUsers(userName: string, usersPerPage: number, currentPage: number): boolean | void {
-    if (!userName) {
+  searchUsers(searchField: string, usersPerPage: number, currentPage: number): boolean | void {
+    if (!searchField) {
       return false;
     }
     this.isLoading = true;
-    this.searchUsersSubscriptions = this.dashboardService.searchUsers(userName, usersPerPage, currentPage)
-      .subscribe(
-        data => {
-          this.store.dispatch(new UsersActions.UpdateSearchResponse(data));
-          this.paginationPanel.users = data;
-          this.paginationPanel.setPage(currentPage);
-        },
-        err => this.isLoading = false,
-        () => {
-          this.isLoading = false;
-        }
-      );
+    this.store.dispatch(new UsersActions.LoadUsers({searchField, usersPerPage, currentPage}));
   }
 }
