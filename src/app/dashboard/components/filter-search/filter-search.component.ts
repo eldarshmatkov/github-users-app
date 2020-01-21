@@ -1,9 +1,10 @@
 import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {fromEvent, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, take} from 'rxjs/operators';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
+import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 
 @Component({
   selector: 'app-filter-search',
@@ -20,7 +21,7 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.$appDataSubscription = this.store.select('appData')
+    this.$appDataSubscription = this.store.pipe(select(selectorAppData))
       .pipe(take(1))
       .subscribe(
         (data) => {

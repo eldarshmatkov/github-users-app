@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
+import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 
 @Component({
   selector: 'app-show-records',
@@ -19,7 +20,7 @@ export class ShowRecordsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.$appDataSubscription = this.store.select('appData')
+    this.$appDataSubscription = this.store.pipe(select(selectorAppData))
       .pipe(take(1))
       .subscribe(
       (data) => {

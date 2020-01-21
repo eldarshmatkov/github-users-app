@@ -1,11 +1,13 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
 import {StoreRootObject} from '../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {debounceTime, take} from 'rxjs/operators';
+import {selectorAppData} from '../store/app-data/app-data.selectors';
+import {selectorAppNotifications} from '../store/app-notifications/app-notifications.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.appDataSubscription = this.store.select('appData')
+    this.appDataSubscription = this.store.pipe(select(selectorAppData))
       .pipe(debounceTime(700))
       .subscribe(
       (data) => {
@@ -42,7 +44,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.notificationsSubscription = this.store.select('appNotifications').subscribe(
+    this.notificationsSubscription = this.store.pipe(select(selectorAppNotifications))
+      .subscribe(
       (data) => {
         this.isLoading = data.isLoading;
       },

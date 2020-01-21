@@ -3,11 +3,13 @@ import {PagerService} from '../../../shared/services/pager.service';
 import {SearchResponse} from '../../../shared/models/searchResponse.type';
 import {SearchResponseUser} from '../../../shared/models/searchResponseUser.type';
 import {PagerType} from '../../../shared/models/pager.type';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
+import {selectorAppData} from '../../../store/app-data/app-data.selectors';
+import {selectorUsersResponse} from '../../../store/users/users.selectors';
 
 @Component({
   selector: 'app-pagination-panel',
@@ -34,7 +36,8 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    this.userResponseSubscription = this.store.select('usersResponse').subscribe(
+    this.userResponseSubscription = this.store.pipe(select(selectorUsersResponse))
+      .subscribe(
       (data) => {
         this.users = data;
       },
@@ -42,7 +45,7 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
         console.log(error);
       })
     );
-    this.appDataSubscription = this.store.select('appData')
+    this.appDataSubscription = this.store.pipe(select(selectorAppData))
       .pipe(take(1))
       .subscribe(
       (data) => {
