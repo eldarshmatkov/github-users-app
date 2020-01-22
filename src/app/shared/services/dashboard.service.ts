@@ -20,7 +20,8 @@ export class DashboardService {
   searchUsers(appData: AppData): Observable<SearchResponse> {
     if (appData.searchField.length > 0) {
       return this.http
-        .get<SearchResponse>(`${this.configUrl}search/users?q=${appData.searchField}&per_page=${appData.usersPerPage}&page=${appData.currentPage}`);
+        .get<SearchResponse>(`${this.configUrl}search/users?q=${appData.searchField}
+        &per_page=${appData.usersPerPage}&page=${appData.currentPage}`);
     } else {
       return new BehaviorSubject<SearchResponse>({} as SearchResponse);
     }
