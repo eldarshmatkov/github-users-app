@@ -4,7 +4,7 @@
     <select
       [(ngModel)]="usersPerPage"
       [ngModelOptions]="{standalone: true}"
-      (ngModelChange)="setUserPerPage($event)"
+      (ngModelChange)="selectModelChange($event)"
       class="form-control" id="usersPerPage">
       <option *ngFor="let usersPerPage of usersPerPageOptions" [ngValue]="usersPerPage">{{usersPerPage}}</option>
     </select>

@@ -8,7 +8,7 @@ import {Subject, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
 import {selectorAppNotifications} from '../store/app-notifications/app-notifications.selectors';
-import {UsersEffects} from '../store/users/users.effects';
+import * as AppNotificationsActions from '../store/app-notifications/app-notifications.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,18 +16,12 @@ import {UsersEffects} from '../store/users/users.effects';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  @ViewChild(PaginationPanelComponent) paginationPanel: PaginationPanelComponent;
-  usersPerPage: number;
-  searchByUser: string;
-  paginationCurrentPage = 1;
   isLoading = false;
   appDataSubscription: Subscription;
   notificationsSubscription: Subscription;
-  usersEffectSubscription: Subscription;
 
   constructor(private dashboardService: DashboardService,
-              private store: Store<StoreRootObject>,
-              private usersEffects: UsersEffects) {
+              private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
@@ -35,11 +29,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(debounceTime(700))
       .subscribe(
         (data) => {
-          this.searchByUser = data.searchField;
-          this.usersPerPage = data.usersPerPage;
-          this.paginationCurrentPage = data.currentPage;
-
-          this.callSearchUsers();
+          if (!data.searchField) {
+            return;
+          }
+          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
+          this.store.dispatch(new UsersActions.LoadUsers(
+            {
+              searchField: data.searchField,
+              usersPerPage: data.usersPerPage,
+              currentPage: data.currentPage
+            }));
         },
         (error => {
           console.log(error);
@@ -55,30 +54,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
           console.log(error);
         })
       );
-
-    this.usersEffectSubscription = this.usersEffects.loadUsers$
-      .subscribe(data => {
-        this.paginationPanel.users = data.payload;
-        this.paginationPanel.setPage(this.paginationCurrentPage);
-        this.isLoading = false;
-      });
   }
 
   ngOnDestroy(): void {
     this.appDataSubscription.unsubscribe();
     this.notificationsSubscription.unsubscribe();
-    this.usersEffectSubscription.unsubscribe();
-  }
-
-  callSearchUsers(): void {
-    this.searchUsers(this.searchByUser, this.usersPerPage, this.paginationCurrentPage);
-  }
-
-  searchUsers(searchField: string, usersPerPage: number, currentPage: number): boolean | void {
-    if (!searchField) {
-      return false;
-    }
-    this.isLoading = true;
-    this.store.dispatch(new UsersActions.LoadUsers({searchField, usersPerPage, currentPage}));
   }
 }

@@ -7,7 +7,6 @@ import {select, Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
-import {take} from 'rxjs/operators';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';
 
@@ -19,6 +18,7 @@ import {selectorUsersResponse} from '../../../store/users/users.selectors';
 export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
   users: SearchResponse;
   usersPerPage: number;
+  currentPage: number;
   pager: PagerType;
   pagedItems: SearchResponseUser[];
   userResponseSubscription: Subscription;
@@ -36,20 +36,22 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
+    this.appDataSubscription = this.store.pipe(select(selectorAppData))
+      .subscribe(
+        (data) => {
+          this.usersPerPage = data.usersPerPage;
+          this.currentPage = data.currentPage;
+        },
+        (error => {
+          console.log(error);
+        })
+      );
+
     this.userResponseSubscription = this.store.pipe(select(selectorUsersResponse))
       .subscribe(
       (data) => {
         this.users = data;
-      },
-      (error => {
-        console.log(error);
-      })
-    );
-    this.appDataSubscription = this.store.pipe(select(selectorAppData))
-      .pipe(take(1))
-      .subscribe(
-      (data) => {
-        this.usersPerPage = data.usersPerPage;
+        this.setPage(this.currentPage);
       },
       (error => {
         console.log(error);

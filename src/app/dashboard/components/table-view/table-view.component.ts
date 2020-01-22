@@ -4,6 +4,7 @@ import {select, Store} from '@ngrx/store';
 import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';
+import * as AppNotificationsActions from '../../../store/app-notifications/app-notifications.actions';
 
 @Component({
   selector: 'app-table-view',
@@ -23,9 +24,11 @@ export class TableViewComponent implements OnInit, OnDestroy {
       .subscribe(
         (data) => {
           this.users = data.items;
+          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
         },
         (error => {
           console.log(error);
+          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
         })
       );
   }

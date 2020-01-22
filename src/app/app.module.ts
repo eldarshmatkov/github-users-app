@@ -12,6 +12,8 @@ import {StoreModule} from '@ngrx/store';
 import {reducers} from './store/storeRootObject';
 import {EffectsModule} from '@ngrx/effects';
 import {UsersEffects} from './store/users/users.effects';
+import {environment} from '../environments/environment.prod';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,11 @@ import {UsersEffects} from './store/users/users.effects';
     StoreModule.forRoot(reducers),
     HttpClientModule,
     NgbModule,
-    EffectsModule.forRoot([UsersEffects])
+    EffectsModule.forRoot([UsersEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

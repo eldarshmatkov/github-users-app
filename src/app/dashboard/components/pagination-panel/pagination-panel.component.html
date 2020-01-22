@@ -1,4 +1,4 @@
-<div class="row justify-content-center mt-3" *ngIf="pager">
+<div class="row justify-content-center mt-3" *ngIf="users?.items.length > 0">
   <nav aria-label="Page navigation col-3">
     <ul class="pagination">
       <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
