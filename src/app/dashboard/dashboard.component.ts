@@ -17,15 +17,15 @@ import * as AppNotificationsActions from '../store/app-notifications/app-notific
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   isLoading = false;
-  appDataSubscription: Subscription;
-  notificationsSubscription: Subscription;
+  appDataSubscription$: Subscription;
+  notificationsSubscription$: Subscription;
 
   constructor(private dashboardService: DashboardService,
               private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.appDataSubscription = this.store.pipe(select(selectorAppData))
+    this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
       .pipe(debounceTime(700))
       .subscribe(
         (data) => {
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })
       );
 
-    this.notificationsSubscription = this.store.pipe(select(selectorAppNotifications))
+    this.notificationsSubscription$ = this.store.pipe(select(selectorAppNotifications))
       .subscribe(
         (data) => {
           this.isLoading = data.isLoading;
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.appDataSubscription.unsubscribe();
-    this.notificationsSubscription.unsubscribe();
+    this.appDataSubscription$.unsubscribe();
+    this.notificationsSubscription$.unsubscribe();
   }
 }

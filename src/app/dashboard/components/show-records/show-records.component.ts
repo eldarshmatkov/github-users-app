@@ -14,13 +14,13 @@ import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 export class ShowRecordsComponent implements OnInit, OnDestroy {
   usersPerPage = 10;
   usersPerPageOptions: number[] = [5, 10, 20, 40, 80];
-  $appDataSubscription: Subscription;
+  appDataSubscription$: Subscription;
 
   constructor(private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.$appDataSubscription = this.store.pipe(select(selectorAppData))
+    this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
       .pipe(take(1))
       .subscribe(
         (data) => {
@@ -36,7 +36,7 @@ export class ShowRecordsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.$appDataSubscription.unsubscribe();
+    this.appDataSubscription$.unsubscribe();
   }
 
   selectModelChange($event) {

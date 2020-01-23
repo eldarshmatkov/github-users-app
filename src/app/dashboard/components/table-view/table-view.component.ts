@@ -14,13 +14,13 @@ import * as AppNotificationsActions from '../../../store/app-notifications/app-n
 
 export class TableViewComponent implements OnInit, OnDestroy {
   users: SearchResponseUser[];
-  usersResponseSubscription: Subscription;
+  usersResponseSubscription$: Subscription;
 
   constructor(private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.usersResponseSubscription = this.store.pipe(select(selectorUsersResponse))
+    this.usersResponseSubscription$ = this.store.pipe(select(selectorUsersResponse))
       .subscribe(
         (data) => {
           this.users = data.items;
@@ -34,6 +34,6 @@ export class TableViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.usersResponseSubscription.unsubscribe();
+    this.usersResponseSubscription$.unsubscribe();
   }
 }

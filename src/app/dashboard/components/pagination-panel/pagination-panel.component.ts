@@ -21,8 +21,8 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
   currentPage: number;
   pager: PagerType;
   pagedItems: SearchResponseUser[];
-  userResponseSubscription: Subscription;
-  appDataSubscription: Subscription;
+  userResponseSubscription$: Subscription;
+  appDataSubscription$: Subscription;
 
   constructor(private pagerService: PagerService, private store: Store<StoreRootObject>) {
   }
@@ -31,12 +31,12 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userResponseSubscription.unsubscribe();
-    this.appDataSubscription.unsubscribe();
+    this.userResponseSubscription$.unsubscribe();
+    this.appDataSubscription$.unsubscribe();
   }
 
   ngOnInit() {
-    this.appDataSubscription = this.store.pipe(select(selectorAppData))
+    this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
       .subscribe(
         (data) => {
           this.usersPerPage = data.usersPerPage;
@@ -47,7 +47,7 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
         })
       );
 
-    this.userResponseSubscription = this.store.pipe(select(selectorUsersResponse))
+    this.userResponseSubscription$ = this.store.pipe(select(selectorUsersResponse))
       .subscribe(
       (data) => {
         this.users = data;

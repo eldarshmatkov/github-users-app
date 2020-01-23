@@ -13,7 +13,7 @@ import {StatePass} from '../shared/models/statePass.type';
 export class SingleUserComponent implements OnInit, OnDestroy {
   state$: Observable<StatePass>;
   userData: SearchResponseUser;
-  stateSubscription: Subscription;
+  stateSubscription$: Subscription;
 
   constructor(public activatedRoute: ActivatedRoute, private router: Router) {
   }
@@ -21,7 +21,7 @@ export class SingleUserComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.state$ = this.activatedRoute.paramMap
       .pipe(map(() => window.history.state));
-    this.stateSubscription = this.state$
+    this.stateSubscription$ = this.state$
       .subscribe((data) => {
         // if no user data passed, then go to main screen
         if (!data.userData) {
@@ -32,7 +32,7 @@ export class SingleUserComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.stateSubscription.unsubscribe();
+    this.stateSubscription$.unsubscribe();
   }
 
   goToMain() {

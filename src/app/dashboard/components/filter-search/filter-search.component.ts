@@ -14,14 +14,14 @@ import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 export class FilterSearchComponent implements OnInit, OnDestroy {
   searchByUser = '';
   @ViewChild('userSearchInput') userSearchInput: ElementRef;
-  $inputEvent: Subscription;
-  $appDataSubscription: Subscription;
+  inputEvent$: Subscription;
+  appDataSubscription$: Subscription;
 
   constructor(private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.$appDataSubscription = this.store.pipe(select(selectorAppData))
+    this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
       .pipe(take(1))
       .subscribe(
         (data) => {
@@ -34,7 +34,7 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
           console.log(error);
         })
       );
-    this.$inputEvent = fromEvent<KeyboardEvent>(this.userSearchInput.nativeElement as HTMLInputElement, 'keyup').pipe(
+    this.inputEvent$ = fromEvent<KeyboardEvent>(this.userSearchInput.nativeElement as HTMLInputElement, 'keyup').pipe(
       map((event: KeyboardEvent) => {
         return ((event.target as HTMLInputElement).value);
       }),
@@ -47,8 +47,8 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.$inputEvent.unsubscribe();
-    this.$appDataSubscription.unsubscribe();
+    this.inputEvent$.unsubscribe();
+    this.appDataSubscription$.unsubscribe();
   }
 
   setSearchByUser($event): void {
