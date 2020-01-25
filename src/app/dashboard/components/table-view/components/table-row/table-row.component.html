@@ -23,8 +23,8 @@
 <div *ngIf="isExpanded && userRepos?.items?.length !== 0; else noRepos">
   <app-repos-view
     [userLogin]="user.login"
-    [repos]="repos"
-    *ngFor="let repos of userRepos?.items">
+    [repo]="repo"
+    *ngFor="let repo of userRepos?.items">
   </app-repos-view>
 </div>
 

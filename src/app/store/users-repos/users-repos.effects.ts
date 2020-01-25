@@ -4,16 +4,17 @@ import { EMPTY } from 'rxjs';
 import {map, catchError, exhaustMap} from 'rxjs/operators';
 import {DashboardService} from '../../shared/services/dashboard.service';
 import {CustomAction} from '../../shared/models/custom-action.type';
+import {LOAD_REPOS, REPOS_LOADED} from './users-repos.actions';
 
 @Injectable()
 export class UsersReposEffects {
 
   @Effect()
-  loadUsers$ = this.actions$.pipe(
-    ofType('LOAD_REPOS'),
+  loadRepos$ = this.actions$.pipe(
+    ofType(LOAD_REPOS),
     exhaustMap((action: CustomAction) => this.dashboardService.fetchUserRepos(action.payload)
       .pipe(
-        map(repos => ({ type: 'REPOS_LOADED', payload: {user: action.payload, items: repos} })),
+        map(repos => ({ type: REPOS_LOADED, payload: {user: action.payload, items: repos} })),
         catchError(() => EMPTY)
       ))
   );

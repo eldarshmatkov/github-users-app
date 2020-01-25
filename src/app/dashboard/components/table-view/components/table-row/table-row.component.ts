@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 import {Router} from '@angular/router';
-import {ReposResponse} from '../../../../../shared/models/reposResponse.type';
 import {SearchResponseUser} from '../../../../../shared/models/searchResponseUser.type';
 import {StoreRootObject} from '../../../../../shared/models/storeRootObject.type';
 import {select, Store} from '@ngrx/store';

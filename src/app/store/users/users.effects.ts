@@ -4,16 +4,17 @@ import { EMPTY } from 'rxjs';
 import {map, catchError, exhaustMap} from 'rxjs/operators';
 import {DashboardService} from '../../shared/services/dashboard.service';
 import {CustomAction} from '../../shared/models/custom-action.type';
+import {LOAD_USERS, USERS_LOADED} from './users.actions';
 
 @Injectable()
 export class UsersEffects {
 
   @Effect()
   loadUsers$ = this.actions$.pipe(
-    ofType('LOAD_USERS'),
+    ofType(LOAD_USERS),
     exhaustMap((action: CustomAction) => this.dashboardService.searchUsers(action.payload)
       .pipe(
-        map(users => ({ type: 'USERS_LOADED', payload: users })),
+        map(users => ({ type: USERS_LOADED, payload: users })),
         catchError(() => EMPTY)
       ))
     );
