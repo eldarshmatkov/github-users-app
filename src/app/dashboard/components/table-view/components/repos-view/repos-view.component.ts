@@ -21,18 +21,19 @@ export class ReposViewComponent implements OnInit, OnDestroy {
   dashboardServiceSubscription$: Subscription;
 
   constructor(private dashboardService: DashboardService,
-              private store: Store<StoreRootObject>) { }
+              private store: Store<StoreRootObject>) {
+  }
 
   ngOnInit() {
   }
 
   ngOnDestroy(): void {
-    this.dashboardServiceSubscription$.unsubscribe();
   }
 
   expandRow() {
     if (!this.commitsExpanded) {
       this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
+      // TODO: Users commits action here
       this.dashboardServiceSubscription$ = this.dashboardService.fetchReposCommits(this.userLogin, this.repos.name)
         .subscribe(
           data => {

@@ -5,6 +5,8 @@ import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';
 import * as AppNotificationsActions from '../../../store/app-notifications/app-notifications.actions';
+import {selectorUsersReposResponse} from '../../../store/users-repos/users-repos.selectors';
+import {ReposResponse} from '../../../shared/models/reposResponse.type';
 
 @Component({
   selector: 'app-table-view',

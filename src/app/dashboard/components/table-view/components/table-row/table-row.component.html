@@ -1,6 +1,7 @@
 <div class="row">
   <div class="user-btn"
-       (click)="goToUser()"></div>
+       (click)="goToUser()">
+  </div>
   <div class="col">
     <div
       (click)="expandRow(user.login)"
@@ -19,11 +20,11 @@
   </div>
 </div>
 
-<div *ngIf="isExpanded && userRepos?.length !== 0; else noRepos">
+<div *ngIf="isExpanded && userRepos?.items?.length !== 0; else noRepos">
   <app-repos-view
     [userLogin]="user.login"
     [repos]="repos"
-    *ngFor="let repos of userRepos">
+    *ngFor="let repos of userRepos?.items">
   </app-repos-view>
 </div>
 

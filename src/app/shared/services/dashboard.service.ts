@@ -27,9 +27,9 @@ export class DashboardService {
     }
   }
 
-  fetchUserRepos(username: string): Observable<ReposResponse> {
+  fetchUserRepos(username: string): Observable<ReposResponse[]> {
     return this.http
-      .get<ReposResponse>(`${this.configUrl}users/${username}/repos`);
+      .get<ReposResponse[]>(`${this.configUrl}users/${username}/repos`);
   }
 
   fetchReposCommits(username: string, repo: string): Observable<CommitsResponse> {
