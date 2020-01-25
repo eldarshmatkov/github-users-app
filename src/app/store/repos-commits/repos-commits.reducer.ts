@@ -4,8 +4,8 @@ import {UserCommitsResponse} from '../../shared/models/userCommitsResponse.type'
 const initialState: UserCommitsResponse = {repo: '', items: []};
 
 export function
-reposCommitsReducer(state = initialState, action: ReposCommitsActions.CommitsLoaded | ReposCommitsActions.CommitsLoadedError)
-  : UserCommitsResponse | string {
+reposCommitsReducer(state = initialState, action: ReposCommitsActions.CommitsLoaded)
+  : UserCommitsResponse {
   switch (action.type) {
     case ReposCommitsActions.COMMITS_LOADED:
       return action.payload;
