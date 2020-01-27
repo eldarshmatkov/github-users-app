@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {fromEvent, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, take} from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';

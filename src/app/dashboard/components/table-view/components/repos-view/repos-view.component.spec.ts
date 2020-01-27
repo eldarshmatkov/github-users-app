@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ReposViewComponent } from './repos-view.component';
+import {ReposViewComponent} from './repos-view.component';
 
 describe('ReposViewComponent', () => {
   let component: ReposViewComponent;

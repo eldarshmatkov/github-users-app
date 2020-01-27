@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 import {ReposResponse} from '../../../../../shared/models/reposResponse.type';
 import {CommitsResponse} from '../../../../../shared/models/commitsResponse.type';
@@ -39,7 +39,6 @@ export class ReposViewComponent implements OnInit {
   expandRow() {
     if (!this.commitsExpanded) {
       this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
-      // TODO: Users commits action here
       this.store.dispatch(new CommitsReposActions.LoadCommits({userLogin: this.userLogin, repoName: this.repo.name}));
     }
     this.commitsExpanded = !this.commitsExpanded;

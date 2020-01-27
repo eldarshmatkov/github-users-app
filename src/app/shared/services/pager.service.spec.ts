@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { PagerService } from './pager.service';
+import {PagerService} from './pager.service';
 
 describe('PagerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

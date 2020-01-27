@@ -1,11 +1,9 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
-import {PaginationPanelComponent} from './components/pagination-panel/pagination-panel.component';
-import {Action, ActionsSubject, select, Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
 import {StoreRootObject} from '../shared/models/storeRootObject.type';
-import {Subject, Subscription} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
 import {selectorAppNotifications} from '../store/app-notifications/app-notifications.selectors';
 import * as AppNotificationsActions from '../store/app-notifications/app-notifications.actions';
@@ -26,7 +24,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
-      .pipe(debounceTime(700))
       .subscribe(
         (data) => {
           if (!data.searchField) {

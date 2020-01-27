@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Actions, createEffect, Effect, ofType} from '@ngrx/effects';
-import {EMPTY, Observable, of} from 'rxjs';
-import {map, catchError, switchMap} from 'rxjs/operators';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {EMPTY} from 'rxjs';
+import {catchError, map, switchMap} from 'rxjs/operators';
 import {DashboardService} from '../../shared/services/dashboard.service';
 import {CustomAction} from '../../shared/models/custom-action.type';
-import {COMMITS_LOADED, CommitsLoaded, LOAD_COMMITS} from './repos-commits.actions';
+import {COMMITS_LOADED, LOAD_COMMITS} from './repos-commits.actions';
 
 
 @Injectable()

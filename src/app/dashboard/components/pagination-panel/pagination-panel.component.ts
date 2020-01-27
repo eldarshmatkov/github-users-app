@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {PagerService} from '../../../shared/services/pager.service';
 import {SearchResponse} from '../../../shared/models/searchResponse.type';
 import {SearchResponseUser} from '../../../shared/models/searchResponseUser.type';

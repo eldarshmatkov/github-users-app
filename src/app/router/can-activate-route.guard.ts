@@ -1,14 +1,10 @@
 import {Injectable} from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot, Router
-} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {StoreRootObject} from '../shared/models/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
-import {Observable, pipe, Subscription} from 'rxjs';
-import {map, skipWhile, take} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 
 @Injectable()

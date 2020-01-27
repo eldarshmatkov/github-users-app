@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 import {Router} from '@angular/router';
 import {SearchResponseUser} from '../../../../../shared/models/searchResponseUser.type';
