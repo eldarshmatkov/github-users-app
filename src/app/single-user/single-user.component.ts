@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SearchResponseUser} from '../shared/models/searchResponseUser.type';
-import {StatePass} from '../shared/models/statePass.type';
+import {Router} from '@angular/router';
+import {StoreRootObject} from '../shared/models/storeRootObject.type';
+import {select, Store} from '@ngrx/store';
+import {selectorAppData} from '../store/app-data/app-data.selectors';
+import {AppData} from '../shared/models/app-data.type';
 
 @Component({
   selector: 'app-single-user',
@@ -11,28 +11,19 @@ import {StatePass} from '../shared/models/statePass.type';
   styleUrls: ['./single-user.component.scss']
 })
 export class SingleUserComponent implements OnInit, OnDestroy {
-  state$: Observable<StatePass>;
-  userData: SearchResponseUser;
-  stateSubscription$: Subscription;
+  appData: AppData;
 
-  constructor(public activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private router: Router, private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.state$ = this.activatedRoute.paramMap
-      .pipe(map(() => window.history.state));
-    this.stateSubscription$ = this.state$
-      .subscribe((data) => {
-        // if no user data passed, then go to main screen
-        if (!data.userData) {
-          this.goToMain();
-        }
-        this.userData = data.userData;
+    this.store.pipe(select(selectorAppData))
+      .subscribe(data => {
+        this.appData = data;
       });
   }
 
   ngOnDestroy(): void {
-    this.stateSubscription$.unsubscribe();
   }
 
   goToMain() {

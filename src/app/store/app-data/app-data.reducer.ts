@@ -5,6 +5,7 @@ const initialState: AppData = {
   searchField: '',
   usersPerPage: 10,
   currentPage: 1,
+  currentUser: {}
 };
 
 
@@ -24,6 +25,11 @@ export function appDataReducer(state = initialState, action: AppDataActions.AppD
       return {
         ...state,
         currentPage: action.payload.currentPage,
+      };
+    case AppDataActions.SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload.currentUser,
       };
     default:
       return state;

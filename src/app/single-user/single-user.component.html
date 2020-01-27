@@ -1,4 +1,4 @@
-<div class="container emp-profile" *ngIf="userData">
+<div class="container emp-profile" *ngIf="appData.currentUser">
   <button
     (click)="goToMain()"
     type="button" class="btn btn-link btn-custom">&larr; Back</button>
@@ -6,18 +6,18 @@
     <div class="row">
       <div class="col-md-4">
         <div class="profile-img">
-          <img [src]="userData.avatar_url" alt=""/>
+          <img [src]="appData.currentUser.avatar_url" alt=""/>
         </div>
       </div>
       <div class="col-md-6">
         <div class="profile-head">
           <h5>
-            {{userData.login}}
+            {{appData.currentUser.login}}
           </h5>
           <h6>
             Developer
           </h6>
-          <p class="proile-rating">SCORE : <span>{{userData.score}}</span></p>
+          <p class="proile-rating">SCORE : <span>{{appData.currentUser.score}}</span></p>
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -30,7 +30,7 @@
       <div class="col-md-4">
         <div class="profile-work">
           <p>Link</p>
-          <a [href]="userData.html_url" target="_blank">Profile Link</a><br/>
+          <a [href]="appData.currentUser.html_url" target="_blank">Profile Link</a><br/>
         </div>
       </div>
       <div class="col-md-8">
@@ -41,7 +41,7 @@
                 <label>User Id</label>
               </div>
               <div class="col-md-6">
-                <p>{{userData.login}}</p>
+                <p>{{appData.currentUser.login}}</p>
               </div>
             </div>
             <div class="row">
@@ -49,7 +49,7 @@
                 <label>Type</label>
               </div>
               <div class="col-md-6">
-                <p>{{userData.type}}</p>
+                <p>{{appData.currentUser.type}}</p>
               </div>
             </div>
             <div class="row">
@@ -57,7 +57,7 @@
                 <label>URL</label>
               </div>
               <div class="col-md-6">
-                <p>{{userData.html_url}}</p>
+                <p>{{appData.currentUser.html_url}}</p>
               </div>
             </div>
             <div class="row">

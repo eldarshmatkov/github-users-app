@@ -16,6 +16,7 @@ import {environment} from '../environments/environment.prod';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {UsersReposEffects} from './store/users-repos/users-repos.effects';
 import {ReposCommitsEffects} from './store/repos-commits/repos-commits.effects';
+import {CanActivateRouteGuard} from './router/can-activate-route.guard';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import {ReposCommitsEffects} from './store/repos-commits/repos-commits.effects';
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [],
+  providers: [CanActivateRouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

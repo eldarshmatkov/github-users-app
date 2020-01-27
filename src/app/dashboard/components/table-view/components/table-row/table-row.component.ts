@@ -9,6 +9,7 @@ import * as UsersReposActions from '../../../../../store/users-repos/users-repos
 import {selectorUsersReposResponse} from '../../../../../store/users-repos/users-repos.selectors';
 import {Subscription} from 'rxjs';
 import {UserReposResponse} from '../../../../../shared/models/userReposResponse.type';
+import * as AppDataActions from '../../../../../store/app-data/app-data.actions';
 
 @Component({
   selector: 'app-table-row',
@@ -52,6 +53,7 @@ export class TableRowComponent implements OnInit {
   }
 
   goToUser() {
-    this.router.navigateByUrl(`single-user/${this.user.login}`, {state: {userData: this.user}});
+    this.store.dispatch(new AppDataActions.SetCurrentUser({currentUser: this.user}));
+    this.router.navigateByUrl(`single-user/${this.user.login}`);
   }
 }
