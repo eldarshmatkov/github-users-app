@@ -3,7 +3,7 @@ import {fromEvent, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, take} from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
-import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
+import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 
 @Component({

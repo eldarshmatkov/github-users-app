@@ -1,15 +1,18 @@
 import * as ReposCommitsActions from './repos-commits.actions';
-import {UserCommitsResponse} from '../../shared/models/userCommitsResponse.type';
+import {UserCommitsResponse} from './userCommitsResponse.type';
+import {CustomAction} from '../custom-action.type';
 
 const initialState: UserCommitsResponse = {repo: '', items: []};
 
 export function
-reposCommitsReducer(state = initialState, action: ReposCommitsActions.CommitsLoaded)
-  : UserCommitsResponse {
+reposCommitsReducer(state, action: ReposCommitsActions.CommitsLoaded | ReposCommitsActions.CommitsFailed)
+  : UserCommitsResponse | CustomAction {
   switch (action.type) {
     case ReposCommitsActions.COMMITS_LOADED:
-      return action.payload;
+      return action;
+    case ReposCommitsActions.COMMITS_FAILED:
+      return action;
     default:
-      return state;
+      return initialState;
   }
 }

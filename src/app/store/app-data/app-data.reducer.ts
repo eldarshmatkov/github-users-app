@@ -1,5 +1,5 @@
 import * as AppDataActions from './app-data.actions';
-import {AppData} from '../../shared/models/app-data.type';
+import {AppData} from './app-data.type';
 
 const initialState: AppData = {
   searchField: '',

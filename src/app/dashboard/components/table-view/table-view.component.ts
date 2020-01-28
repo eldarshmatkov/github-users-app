@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {SearchResponseUser} from '../../../shared/models/searchResponseUser.type';
+import {SearchResponseUser} from '../../../store/users/searchResponseUser.type';
 import {select, Store} from '@ngrx/store';
-import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
+import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';
 import * as AppNotificationsActions from '../../../store/app-notifications/app-notifications.actions';

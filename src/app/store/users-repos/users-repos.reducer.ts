@@ -1,5 +1,5 @@
 import * as UsersReposActions from './users-repos.actions';
-import {UserReposResponse} from '../../shared/models/userReposResponse.type';
+import {UserReposResponse} from './userReposResponse.type';
 
 const initialState: UserReposResponse = {user: '', items: []};
 

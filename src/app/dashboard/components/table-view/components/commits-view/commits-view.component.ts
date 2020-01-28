@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {CommitsResponse} from '../../../../../shared/models/commitsResponse.type';
+import {CommitsResponse} from '../../../../../store/repos-commits/commitsResponse.type';
 
 @Component({
   selector: 'app-commits-view',

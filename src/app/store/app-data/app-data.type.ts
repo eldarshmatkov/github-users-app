@@ -1,4 +1,4 @@
-import {SearchResponseUser} from './searchResponseUser.type';
+import {SearchResponseUser} from '../users/searchResponseUser.type';
 
 export interface AppData {
   searchField?: string;

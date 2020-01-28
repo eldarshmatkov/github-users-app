@@ -6,7 +6,7 @@
       class="btn btn-warning mr-2">
       <span>{{commitsExpanded ? '-' : '+'}}</span>
     </div>
-      {{repo.name}}
+    {{repo.name}}
   </div>
   <div class="col col-6">
     <a [href]="repo.url" target="_blank">{{repo.url}}</a>
@@ -14,9 +14,20 @@
 </div>
 
 <div *ngIf="commitsExpanded">
-  <app-commits-view
-    [commit]="commit"
-    *ngFor="let commit of reposCommits"
-  ></app-commits-view>
+  <ng-container *ngIf="!isNoCommits; else noCommits">
+    <app-commits-view
+      [commit]="commit"
+      *ngFor="let commit of reposCommits"
+    ></app-commits-view>
+  </ng-container>
+
+  <ng-template #noCommits>
+    <div class="row">
+      <div class="col col-1"></div>
+      <div class="col col-11">
+        {{httpErrorResponse}}
+      </div>
+    </div>
+  </ng-template>
 </div>
 

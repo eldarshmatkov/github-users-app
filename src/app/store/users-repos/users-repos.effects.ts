@@ -3,7 +3,7 @@ import {Actions, Effect, ofType} from '@ngrx/effects';
 import {EMPTY} from 'rxjs';
 import {catchError, exhaustMap, map} from 'rxjs/operators';
 import {DashboardService} from '../../shared/services/dashboard.service';
-import {CustomAction} from '../../shared/models/custom-action.type';
+import {CustomAction} from '../custom-action.type';
 import {LOAD_REPOS, REPOS_LOADED} from './users-repos.actions';
 
 @Injectable()

@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 import {Router} from '@angular/router';
-import {SearchResponseUser} from '../../../../../shared/models/searchResponseUser.type';
-import {StoreRootObject} from '../../../../../shared/models/storeRootObject.type';
+import {SearchResponseUser} from '../../../../../store/users/searchResponseUser.type';
+import {StoreRootObject} from '../../../../../store/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
 import * as AppNotificationsActions from '../../../../../store/app-notifications/app-notifications.actions';
 import * as UsersReposActions from '../../../../../store/users-repos/users-repos.actions';
 import {selectorUsersReposResponse} from '../../../../../store/users-repos/users-repos.selectors';
 import {Subscription} from 'rxjs';
-import {UserReposResponse} from '../../../../../shared/models/userReposResponse.type';
+import {UserReposResponse} from '../../../../../store/users-repos/userReposResponse.type';
 import * as AppDataActions from '../../../../../store/app-data/app-data.actions';
 
 @Component({

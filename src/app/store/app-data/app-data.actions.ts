@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {AppData} from '../../shared/models/app-data.type';
+import {AppData} from './app-data.type';
 
 export const SEARCH_USER = 'SEARCH_USER';
 export const SET_USERS_PER_PAGE = 'SET_USERS_PER_PAGE';

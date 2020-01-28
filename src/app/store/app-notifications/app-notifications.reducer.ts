@@ -1,5 +1,5 @@
 import * as CallNotificationsActions from './app-notifications.actions';
-import {AppNotifications} from '../../shared/models/app-notifications';
+import {AppNotifications} from './app-notifications';
 
 const initialState: AppNotifications = {
   isLoading: false,

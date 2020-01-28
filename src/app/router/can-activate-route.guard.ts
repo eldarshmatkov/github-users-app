@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {StoreRootObject} from '../shared/models/storeRootObject.type';
+import {StoreRootObject} from '../store/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
 import {Observable} from 'rxjs';

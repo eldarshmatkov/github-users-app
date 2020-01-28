@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {UserReposResponse} from '../../shared/models/userReposResponse.type';
+import {UserReposResponse} from './userReposResponse.type';
 
 export const LOAD_REPOS = 'LOAD_REPOS';
 export const REPOS_LOADED = 'REPOS_LOADED';

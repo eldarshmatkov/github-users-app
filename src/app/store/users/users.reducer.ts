@@ -1,4 +1,4 @@
-import {SearchResponse} from '../../shared/models/searchResponse.type';
+import {SearchResponse} from './searchResponse.type';
 import * as UsersActions from './users.actions';
 
 const initialState: SearchResponse = {

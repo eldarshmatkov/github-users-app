@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {SearchResponse} from '../models/searchResponse.type';
-import {ReposResponse} from '../models/reposResponse.type';
-import {CommitsResponse} from '../models/commitsResponse.type';
-import {AppData} from '../models/app-data.type';
+import {SearchResponse} from '../../store/users/searchResponse.type';
+import {ReposResponse} from '../../store/users-repos/reposResponse.type';
+import {CommitsResponse} from '../../store/repos-commits/commitsResponse.type';
+import {AppData} from '../../store/app-data/app-data.type';
 
 @Injectable({
   providedIn: 'root'

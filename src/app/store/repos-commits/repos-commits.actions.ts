@@ -1,8 +1,9 @@
 import {Action} from '@ngrx/store';
-import {UserCommitsResponse} from '../../shared/models/userCommitsResponse.type';
+import {CustomAction} from '../custom-action.type';
 
 export const LOAD_COMMITS = 'LOAD_COMMITS';
 export const COMMITS_LOADED = 'COMMITS_LOADED';
+export const COMMITS_FAILED = 'COMMITS_FAILED';
 
 export class LoadCommits implements Action {
   readonly type = LOAD_COMMITS;
@@ -15,7 +16,15 @@ export class LoadCommits implements Action {
 export class CommitsLoaded implements Action {
   readonly type = COMMITS_LOADED;
 
-  constructor(public payload: UserCommitsResponse) {
+  constructor(public payload: CustomAction) {
+
+  }
+}
+
+export class CommitsFailed implements Action {
+  readonly type = COMMITS_FAILED;
+
+  constructor(public payload: CustomAction) {
 
   }
 }

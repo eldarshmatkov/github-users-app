@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {SearchResponse} from '../../shared/models/searchResponse.type';
-import {AppData} from '../../shared/models/app-data.type';
+import {SearchResponse} from './searchResponse.type';
+import {AppData} from '../app-data/app-data.type';
 
 export const LOAD_USERS = 'LOAD_USERS';
 export const USERS_LOADED = 'USERS_LOADED';

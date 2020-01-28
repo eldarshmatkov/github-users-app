@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PagerType} from '../models/pager.type';
+import {PagerType} from '../../dashboard/components/pagination-panel/pager.type';
 
 @Injectable({
   providedIn: 'root'

@@ -1,11 +1,11 @@
 import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {PagerService} from '../../../shared/services/pager.service';
-import {SearchResponse} from '../../../shared/models/searchResponse.type';
-import {SearchResponseUser} from '../../../shared/models/searchResponseUser.type';
-import {PagerType} from '../../../shared/models/pager.type';
+import {SearchResponse} from '../../../store/users/searchResponse.type';
+import {SearchResponseUser} from '../../../store/users/searchResponseUser.type';
+import {PagerType} from './pager.type';
 import {select, Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
-import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
+import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';

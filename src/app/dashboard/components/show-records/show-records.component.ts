@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
-import {StoreRootObject} from '../../../shared/models/storeRootObject.type';
+import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';

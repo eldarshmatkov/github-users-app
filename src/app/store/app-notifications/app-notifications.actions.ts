@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {AppNotifications} from '../../shared/models/app-notifications';
+import {AppNotifications} from './app-notifications';
 
 export const CALL_APP_NOTIFICATIONS = 'CALL_APP_NOTIFICATIONS';
 

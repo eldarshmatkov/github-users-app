@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
-import {ReposResponse} from '../../../../../shared/models/reposResponse.type';
-import {CommitsResponse} from '../../../../../shared/models/commitsResponse.type';
+import {ReposResponse} from '../../../../../store/users-repos/reposResponse.type';
+import {CommitsResponse} from '../../../../../store/repos-commits/commitsResponse.type';
 import * as AppNotificationsActions from '../../../../../store/app-notifications/app-notifications.actions';
-import {StoreRootObject} from '../../../../../shared/models/storeRootObject.type';
+import {StoreRootObject} from '../../../../../store/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
 import {selectorReposCommitsResponse} from '../../../../../store/repos-commits/repos-commits.selectors';
@@ -18,6 +18,8 @@ export class ReposViewComponent implements OnInit {
   @Input() isExpanded: boolean;
   @Input() repo: ReposResponse;
   @Input() userLogin: string;
+  httpErrorResponse: string;
+  isNoCommits = false;
   reposCommits: CommitsResponse[];
   commitsExpanded = false;
   fetchReposCommits$: Subscription;
@@ -29,10 +31,16 @@ export class ReposViewComponent implements OnInit {
   ngOnInit() {
     this.fetchReposCommits$ = this.store.pipe(select(selectorReposCommitsResponse))
       .subscribe(response => {
-        if (response.repo === this.repo.name) {
-          this.reposCommits = response.items;
-          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
+        if (response.type === CommitsReposActions.COMMITS_LOADED) {
+          if (response.payload.repo === this.repo.name) {
+            this.reposCommits = response.payload.items;
+            this.isNoCommits = false;
+          }
+        } else if (response.type === CommitsReposActions.COMMITS_FAILED) {
+          this.httpErrorResponse = response.payload.error.message;
+          this.isNoCommits = true;
         }
+        this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
       });
   }
 

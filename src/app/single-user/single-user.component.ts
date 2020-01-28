@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {StoreRootObject} from '../shared/models/storeRootObject.type';
+import {StoreRootObject} from '../store/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
-import {AppData} from '../shared/models/app-data.type';
+import {AppData} from '../store/app-data/app-data.type';
 
 @Component({
   selector: 'app-single-user',
