@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
 import {selectorAppNotifications} from '../store/app-notifications/app-notifications.selectors';
 import * as AppNotificationsActions from '../store/app-notifications/app-notifications.actions';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
+      .pipe(debounceTime(700))
       .subscribe(
         (data) => {
           if (!data.searchField) {
