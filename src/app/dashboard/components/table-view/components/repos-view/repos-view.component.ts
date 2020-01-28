@@ -31,16 +31,18 @@ export class ReposViewComponent implements OnInit {
   ngOnInit() {
     this.fetchReposCommits$ = this.store.pipe(select(selectorReposCommitsResponse))
       .subscribe(response => {
-        if (response.type === CommitsReposActions.COMMITS_LOADED) {
-          if (response.payload.repo === this.repo.name) {
-            this.reposCommits = response.payload.items;
-            this.isNoCommits = false;
+        if (response) {
+          if (response.type === CommitsReposActions.COMMITS_LOADED) {
+            if (response.payload.repo === this.repo.name) {
+              this.reposCommits = response.payload.items;
+              this.isNoCommits = false;
+            }
+          } else if (response.type === CommitsReposActions.COMMITS_FAILED) {
+            this.httpErrorResponse = response.payload.error.message;
+            this.isNoCommits = true;
           }
-        } else if (response.type === CommitsReposActions.COMMITS_FAILED) {
-          this.httpErrorResponse = response.payload.error.message;
-          this.isNoCommits = true;
+          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
         }
-        this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
       });
   }
 
