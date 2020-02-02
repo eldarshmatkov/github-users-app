@@ -5,11 +5,12 @@ import {UserReposResponse} from './users-repos/userReposResponse.type';
 import {UserCommitsResponse} from './repos-commits/userCommitsResponse.type';
 import {CustomAction} from './custom-action.type';
 import {SearchResponseState} from './users/searchResponseState.type';
+import {UserReposResponseState} from './users-repos/userReposResponseState.type';
 
 export interface StoreRootObject {
   usersResponse: SearchResponseState;
   appData: AppData;
   appNotifications: AppNotifications;
-  usersReposResponse: UserReposResponse;
+  usersReposResponse: UserReposResponseState;
   reposCommitsResponse: CustomAction;
 }

@@ -1,4 +1,3 @@
-import {SearchResponse} from './searchResponse.type';
 import * as UsersActions from './users.actions';
 import {SearchResponseState} from './searchResponseState.type';
 import {SearchResponseUser} from './searchResponseUser.type';

@@ -20,11 +20,11 @@
   </div>
 </div>
 
-<div *ngIf="isExpanded && userRepos?.items?.length !== 0; else noRepos">
+<div *ngIf="isExpanded && userReposWithArray?.items?.length !== 0; else noRepos">
   <app-repos-view
     [userLogin]="user.login"
     [repo]="repo"
-    *ngFor="let repo of userRepos?.items">
+    *ngFor="let repo of userReposWithArray?.items">
   </app-repos-view>
 </div>
 

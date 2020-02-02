@@ -10,6 +10,7 @@ import {selectorUsersReposResponse} from '../../../../../store/users-repos/users
 import {Subscription} from 'rxjs';
 import {UserReposResponse} from '../../../../../store/users-repos/userReposResponse.type';
 import * as AppDataActions from '../../../../../store/app-data/app-data.actions';
+import {UserReposResponseState} from '../../../../../store/users-repos/userReposResponseState.type';
 
 @Component({
   selector: 'app-table-row',
@@ -18,7 +19,8 @@ import * as AppDataActions from '../../../../../store/app-data/app-data.actions'
 })
 export class TableRowComponent implements OnInit {
   @Input() user: SearchResponseUser;
-  @Input() userRepos: UserReposResponse;
+  @Input() userRepos: UserReposResponseState;
+  userReposWithArray: UserReposResponse;
   fetchUserRepos$: Subscription;
   isExpanded = false;
 
@@ -33,12 +35,12 @@ export class TableRowComponent implements OnInit {
         // check if this is user you clicked on
         if (response.user === this.user.login) {
           // check if it is have items in response
-          if (response.items.length === 0) {
-            this.userRepos = {user: response.user, items: []};
+          if (response.items.entities.length === 0) {
+            this.userRepos = {user: response.user, items: {ids: [], entities: {}}};
             this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
             return;
           }
-          this.userRepos = response;
+          this.userReposWithArray = {user: response.user, items: Object.values(response.items.entities)};
           this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
         }
       });
