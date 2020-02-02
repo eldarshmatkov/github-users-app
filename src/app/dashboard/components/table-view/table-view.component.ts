@@ -5,6 +5,7 @@ import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';
 import * as AppNotificationsActions from '../../../store/app-notifications/app-notifications.actions';
+import {EntityState} from '@ngrx/entity';
 
 @Component({
   selector: 'app-table-view',
@@ -13,7 +14,7 @@ import * as AppNotificationsActions from '../../../store/app-notifications/app-n
 })
 
 export class TableViewComponent implements OnInit, OnDestroy {
-  users: SearchResponseUser[];
+  users: SearchResponseUser;
   usersResponseSubscription$: Subscription;
 
   constructor(private store: Store<StoreRootObject>) {
@@ -23,7 +24,7 @@ export class TableViewComponent implements OnInit, OnDestroy {
     this.usersResponseSubscription$ = this.store.pipe(select(selectorUsersResponse))
       .subscribe(
         (data) => {
-          this.users = data.items;
+          this.users = data.items.entities;
           this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
         },
         (error => {

@@ -4,9 +4,10 @@ import {AppNotifications} from './app-notifications/app-notifications';
 import {UserReposResponse} from './users-repos/userReposResponse.type';
 import {UserCommitsResponse} from './repos-commits/userCommitsResponse.type';
 import {CustomAction} from './custom-action.type';
+import {SearchResponseState} from './users/searchResponseState.type';
 
 export interface StoreRootObject {
-  usersResponse: SearchResponse;
+  usersResponse: SearchResponseState;
   appData: AppData;
   appNotifications: AppNotifications;
   usersReposResponse: UserReposResponse;

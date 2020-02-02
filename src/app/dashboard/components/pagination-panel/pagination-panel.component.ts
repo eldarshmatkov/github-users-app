@@ -9,6 +9,8 @@ import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';
+import {usersAdapter} from '../../../store/users/users.reducer';
+import {SearchResponseState} from '../../../store/users/searchResponseState.type';
 
 @Component({
   selector: 'app-pagination-panel',
@@ -16,7 +18,8 @@ import {selectorUsersResponse} from '../../../store/users/users.selectors';
   styleUrls: ['./pagination-panel.component.scss']
 })
 export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
-  users: SearchResponse;
+  users: SearchResponseState;
+  usersArray: SearchResponseUser[];
   usersPerPage: number;
   currentPage: number;
   pager: PagerType;
@@ -67,7 +70,8 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
     // get pager object from service
     this.pager = this.pagerService.getPager(this.users.total_count, page, this.usersPerPage);
 
-    // get current page of items
-    this.pagedItems = this.users.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    // get current page of items from object and convert it to array
+    this.usersArray = Object.values(this.users.items.entities);
+    this.pagedItems = this.usersArray.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 }
