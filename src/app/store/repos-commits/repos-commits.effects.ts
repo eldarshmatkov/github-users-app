@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {EMPTY, of} from 'rxjs';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {DashboardService} from '../../shared/services/dashboard.service';
 import {CustomAction} from '../custom-action.type';
 import * as ReposCommitsActions from './repos-commits.actions';
@@ -16,7 +16,9 @@ export class ReposCommitsEffects {
     switchMap((action: CustomAction) => this.dashboardService.fetchReposCommits(action.payload.userLogin, action.payload.repoName)
       .pipe(
         map(repos => ({type: ReposCommitsActions.COMMITS_LOADED, payload: {repo: action.payload.repoName, items: repos}})),
-        catchError(err => of(new ReposCommitsActions.CommitsFailed(err))
+        catchError(err => of(
+          new ReposCommitsActions.CommitsFailed({repo: action.payload.repoName, items: {ids: [], entities: {}}, error: err})
+          )
         )
       ))
   );

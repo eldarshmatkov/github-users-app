@@ -12,7 +12,7 @@ export const initialReposState: ReposState =
 
 const initialState: UserReposResponseState = {
   user: '',
-  items: initialReposState
+  items: initialReposState,
 };
 
 export function usersReposReducer(state = initialState, action: UsersReposActions.ReposLoaded): UserReposResponseState {
