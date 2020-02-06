@@ -1,7 +1,7 @@
 import {ReposState} from './ReposState.type';
 
 export interface UserReposResponseState {
-  user: string;
+  isLoaded: boolean;
   items: ReposState;
 }
 

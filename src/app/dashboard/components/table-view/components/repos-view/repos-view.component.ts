@@ -8,6 +8,7 @@ import {select, Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
 import {selectorReposCommitsResponse} from '../../../../../store/repos-commits/repos-commits.selectors';
 import * as CommitsReposActions from '../../../../../store/repos-commits/repos-commits.actions';
+import {UserCommitsResponseState} from '../../../../../store/repos-commits/userCommitsResponseState.type';
 
 @Component({
   selector: 'app-repos-view',
@@ -30,9 +31,11 @@ export class ReposViewComponent implements OnInit {
 
   ngOnInit() {
     this.fetchReposCommits$ = this.store.pipe(select(selectorReposCommitsResponse))
-      .subscribe(response => {
+      .subscribe((response: UserCommitsResponseState) => {
         if (response) {
+          // TODO: Перенести функционал в селектор selectorReposCommitsResponse, брать выборку по конкретной repo id из store
           if (response.repo === this.repo.name) {
+            // TODO: Сделать поток с ошибками и слушать его - вместо этого функционала if (response.error.status > 0) {
             if (response.error.status > 0) {
               this.httpErrorResponse = response.error.error.message;
               this.reposCommits = [];
@@ -41,8 +44,9 @@ export class ReposViewComponent implements OnInit {
               this.reposCommits = Object.values(response.items.entities);
               this.isNoCommits = false;
             }
+            // TODO: Перенести вызов action в effects/reducer - понять куда лучше
+            this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
           }
-          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
         }
       });
   }

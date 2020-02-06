@@ -18,7 +18,7 @@ export class SingleUserComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.pipe(select(selectorAppData))
-      .subscribe(data => {
+      .subscribe((data: AppData) => {
         this.appData = data;
       });
   }

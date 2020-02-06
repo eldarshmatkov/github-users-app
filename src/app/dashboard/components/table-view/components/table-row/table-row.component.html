@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div *ngIf="isExpanded && userReposWithArray?.items?.length !== 0; else noRepos">
+<div *ngIf="isExpanded && isLoaded && userReposWithArray?.items?.length > 0; else noRepos">
   <app-repos-view
     [userLogin]="user.login"
     [repo]="repo"
@@ -29,7 +29,7 @@
 </div>
 
 <ng-template #noRepos>
-  <div class="row" *ngIf="isExpanded">
+  <div class="row" *ngIf="isExpanded && isLoaded && userReposWithArray?.items?.length === 0">
     <div class="col">
       <p>
         No repos available.

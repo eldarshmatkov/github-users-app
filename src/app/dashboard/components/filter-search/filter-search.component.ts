@@ -5,6 +5,7 @@ import {select, Store} from '@ngrx/store';
 import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
+import {AppData} from '../../../store/app-data/app-data.type';
 
 @Component({
   selector: 'app-filter-search',
@@ -24,7 +25,7 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
     this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
       .pipe(take(1))
       .subscribe(
-        (data) => {
+        (data: AppData) => {
           if (data) {
             this.searchByUser = data.searchField;
             this.setSearchByUser(this.searchByUser);
@@ -41,8 +42,8 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
       debounceTime(700),
       distinctUntilChanged()
     ).subscribe((inputData: string) => {
-        this.store.dispatch(new AppDataActions.SetCurrentPage({currentPage: 1}));
-        this.setSearchByUser(inputData);
+      this.setSearchByUser(inputData);
+      this.store.dispatch(new AppDataActions.SetCurrentPage({currentPage: 1}));
     });
   }
 

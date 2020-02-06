@@ -5,6 +5,7 @@ import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
+import {AppData} from '../../../store/app-data/app-data.type';
 
 @Component({
   selector: 'app-show-records',
@@ -23,7 +24,7 @@ export class ShowRecordsComponent implements OnInit, OnDestroy {
     this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
       .pipe(take(1))
       .subscribe(
-        (data) => {
+        (data: AppData) => {
           if (data) {
             this.usersPerPage = data.usersPerPage;
             this.setUserPerPage(data.usersPerPage);

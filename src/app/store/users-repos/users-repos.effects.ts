@@ -14,7 +14,7 @@ export class UsersReposEffects {
     ofType(LOAD_REPOS),
     exhaustMap((action: CustomAction) => this.dashboardService.fetchUserRepos(action.payload)
       .pipe(
-        map(repos => ({ type: REPOS_LOADED, payload: {user: action.payload, items: repos} })),
+        map(repos => ({ type: REPOS_LOADED, payload: {isLoaded: true, items: repos} })),
         catchError(() => EMPTY)
       ))
   );

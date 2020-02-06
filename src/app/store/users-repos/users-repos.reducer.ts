@@ -11,7 +11,7 @@ export const initialReposState: ReposState =
   reposAdapter.getInitialState();
 
 const initialState: UserReposResponseState = {
-  user: '',
+  isLoaded: false,
   items: initialReposState,
 };
 
@@ -20,8 +20,8 @@ export function usersReposReducer(state = initialState, action: UsersReposAction
     case UsersReposActions.REPOS_LOADED:
       return {
         ...state,
-        user: action.payload.user,
-        items: reposAdapter.addAll(action.payload.items, state.items)
+        isLoaded: action.payload.isLoaded,
+        items: reposAdapter.addMany(action.payload.items, state.items)
       };
     default:
       return state;

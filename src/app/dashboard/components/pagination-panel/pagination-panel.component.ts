@@ -11,6 +11,7 @@ import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';
 import {usersAdapter} from '../../../store/users/users.reducer';
 import {SearchResponseState} from '../../../store/users/searchResponseState.type';
+import {AppData} from '../../../store/app-data/app-data.type';
 
 @Component({
   selector: 'app-pagination-panel',
@@ -41,7 +42,7 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
       .subscribe(
-        (data) => {
+        (data: AppData) => {
           this.usersPerPage = data.usersPerPage;
           this.currentPage = data.currentPage;
         },
@@ -52,7 +53,7 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
 
     this.userResponseSubscription$ = this.store.pipe(select(selectorUsersResponse))
       .subscribe(
-      (data) => {
+      (data: SearchResponseState) => {
         this.users = data;
         this.setPage(this.currentPage);
       },

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {select, Store} from '@ngrx/store';
 import * as UsersActions from '../store/users/users.actions';
@@ -8,26 +8,32 @@ import {selectorAppData} from '../store/app-data/app-data.selectors';
 import {selectorAppNotifications} from '../store/app-notifications/app-notifications.selectors';
 import * as AppNotificationsActions from '../store/app-notifications/app-notifications.actions';
 import {debounceTime} from 'rxjs/operators';
+import {AppData} from '../store/app-data/app-data.type';
+import {AppNotifications} from '../store/app-notifications/app-notifications';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy, AfterContentChecked {
   isLoading = false;
   appDataSubscription$: Subscription;
   notificationsSubscription$: Subscription;
 
   constructor(private dashboardService: DashboardService,
-              private store: Store<StoreRootObject>) {
+              private store: Store<StoreRootObject>,
+              private changeDetector: ChangeDetectorRef) {
+  }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   ngOnInit() {
     this.appDataSubscription$ = this.store.pipe(select(selectorAppData))
-      .pipe(debounceTime(700))
       .subscribe(
-        (data) => {
+        (data: AppData) => {
           if (!data.searchField) {
             return;
           }
@@ -46,7 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.notificationsSubscription$ = this.store.pipe(select(selectorAppNotifications))
       .subscribe(
-        (data) => {
+        (data: AppNotifications) => {
           this.isLoading = data.isLoading;
         },
         (error => {

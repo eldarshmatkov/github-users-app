@@ -6,11 +6,12 @@ import {StoreRootObject} from '../../../../../store/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
 import * as AppNotificationsActions from '../../../../../store/app-notifications/app-notifications.actions';
 import * as UsersReposActions from '../../../../../store/users-repos/users-repos.actions';
-import {selectorUsersReposResponse} from '../../../../../store/users-repos/users-repos.selectors';
+import {getReposArray} from '../../../../../store/users-repos/users-repos.selectors';
 import {Subscription} from 'rxjs';
 import {UserReposResponse} from '../../../../../store/users-repos/userReposResponse.type';
 import * as AppDataActions from '../../../../../store/app-data/app-data.actions';
 import {UserReposResponseState} from '../../../../../store/users-repos/userReposResponseState.type';
+import {ReposResponse} from '../../../../../store/users-repos/reposResponse.type';
 
 @Component({
   selector: 'app-table-row',
@@ -23,6 +24,7 @@ export class TableRowComponent implements OnInit {
   userReposWithArray: UserReposResponse;
   fetchUserRepos$: Subscription;
   isExpanded = false;
+  isLoaded = false;
 
   constructor(private dashboardService: DashboardService,
               private router: Router,
@@ -30,19 +32,12 @@ export class TableRowComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchUserRepos$ = this.store.pipe(select(selectorUsersReposResponse))
-      .subscribe((response) => {
-        // check if this is user you clicked on
-        if (response.user === this.user.login) {
-          // check if it is have items in response
-          if (response.items.entities.length === 0) {
-            this.userRepos = {user: response.user, items: {ids: [], entities: {}}};
-            this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
-            return;
-          }
-          this.userReposWithArray = {user: response.user, items: Object.values(response.items.entities)};
-          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
-        }
+    this.fetchUserRepos$ = this.store.pipe(select(getReposArray(this.user.id)))
+      .subscribe((response: UserReposResponse) => {
+        this.userReposWithArray = response;
+          // TODO: Перенести вызов action в effects/reducer - понять куда лучше
+        this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
+        this.isLoaded = response.isLoaded;
       });
   }
 
@@ -50,8 +45,11 @@ export class TableRowComponent implements OnInit {
     if (!this.isExpanded) {
       this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
       this.store.dispatch(new UsersReposActions.LoadRepos(username));
+      this.isExpanded = true;
+      this.isLoaded = false;
+    } else {
+      this.isExpanded = false;
     }
-    this.isExpanded = !this.isExpanded;
   }
 
   goToUser() {
