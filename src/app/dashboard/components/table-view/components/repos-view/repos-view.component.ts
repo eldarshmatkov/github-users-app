@@ -9,6 +9,8 @@ import {Subscription} from 'rxjs';
 import {selectorReposCommitsResponse} from '../../../../../store/repos-commits/repos-commits.selectors';
 import * as CommitsReposActions from '../../../../../store/repos-commits/repos-commits.actions';
 import {UserCommitsResponseState} from '../../../../../store/repos-commits/userCommitsResponseState.type';
+import {loadCommits} from '../../../../../store/repos-commits/repos-commits.actions';
+import {callAppNotifications} from '../../../../../store/app-notifications/app-notifications.actions';
 
 @Component({
   selector: 'app-repos-view',
@@ -45,7 +47,7 @@ export class ReposViewComponent implements OnInit {
               this.isNoCommits = false;
             }
             // TODO: Перенести вызов action в effects/reducer - понять куда лучше
-            this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
+            this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
           }
         }
       });
@@ -53,8 +55,8 @@ export class ReposViewComponent implements OnInit {
 
   expandRow() {
     if (!this.commitsExpanded) {
-      this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
-      this.store.dispatch(new CommitsReposActions.LoadCommits({userLogin: this.userLogin, repoName: this.repo.name}));
+      this.store.dispatch(callAppNotifications({payload: {isLoading: true}}));
+      this.store.dispatch(loadCommits({payload: {userLogin: this.userLogin, repoName: this.repo.name}}));
     }
     this.commitsExpanded = !this.commitsExpanded;
   }

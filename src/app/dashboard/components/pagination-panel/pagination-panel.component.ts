@@ -12,6 +12,7 @@ import {selectorUsersResponse} from '../../../store/users/users.selectors';
 import {usersAdapter} from '../../../store/users/users.reducer';
 import {SearchResponseState} from '../../../store/users/searchResponseState.type';
 import {AppData} from '../../../store/app-data/app-data.type';
+import {setCurrentPage} from '../../../store/app-data/app-data.actions';
 
 @Component({
   selector: 'app-pagination-panel',
@@ -64,7 +65,7 @@ export class PaginationPanelComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   changePage(page: number): void {
-    this.store.dispatch(new AppDataActions.SetCurrentPage({currentPage: page}));
+    this.store.dispatch(setCurrentPage({payload: {currentPage: page}}));
   }
 
   setPage(page: number): void {

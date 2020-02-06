@@ -1,5 +1,6 @@
 import * as AppDataActions from './app-data.actions';
 import {AppData} from './app-data.type';
+import {CustomAction} from '../custom-action.type';
 
 const initialState: AppData = {
   searchField: '',
@@ -9,7 +10,7 @@ const initialState: AppData = {
 };
 
 
-export function appDataReducer(state = initialState, action: AppDataActions.AppDataActions): AppData {
+export function appDataReducer(state = initialState, action: CustomAction): AppData {
   switch (action.type) {
     case AppDataActions.SEARCH_USER:
       return {

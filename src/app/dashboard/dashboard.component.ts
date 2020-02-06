@@ -10,6 +10,8 @@ import * as AppNotificationsActions from '../store/app-notifications/app-notific
 import {debounceTime} from 'rxjs/operators';
 import {AppData} from '../store/app-data/app-data.type';
 import {AppNotifications} from '../store/app-notifications/app-notifications';
+import {loadUsers} from '../store/users/users.actions';
+import {callAppNotifications} from '../store/app-notifications/app-notifications.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,13 +39,14 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterContentChecke
           if (!data.searchField) {
             return;
           }
-          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
-          this.store.dispatch(new UsersActions.LoadUsers(
-            {
-              searchField: data.searchField,
-              usersPerPage: data.usersPerPage,
-              currentPage: data.currentPage
-            }));
+          this.store.dispatch(callAppNotifications({payload: {isLoading: true}}));
+          this.store.dispatch(loadUsers({
+            payload: {
+                searchField: data.searchField,
+                usersPerPage: data.usersPerPage,
+                currentPage: data.currentPage
+              }
+          }));
         },
         (error => {
           console.log(error);

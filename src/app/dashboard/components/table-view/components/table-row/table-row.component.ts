@@ -11,7 +11,9 @@ import {Subscription} from 'rxjs';
 import {UserReposResponse} from '../../../../../store/users-repos/userReposResponse.type';
 import * as AppDataActions from '../../../../../store/app-data/app-data.actions';
 import {UserReposResponseState} from '../../../../../store/users-repos/userReposResponseState.type';
-import {ReposResponse} from '../../../../../store/users-repos/reposResponse.type';
+import {loadRepos} from '../../../../../store/users-repos/users-repos.actions';
+import {callAppNotifications} from '../../../../../store/app-notifications/app-notifications.actions';
+import {setCurrentUser} from '../../../../../store/app-data/app-data.actions';
 
 @Component({
   selector: 'app-table-row',
@@ -36,15 +38,15 @@ export class TableRowComponent implements OnInit {
       .subscribe((response: UserReposResponse) => {
         this.userReposWithArray = response;
           // TODO: Перенести вызов action в effects/reducer - понять куда лучше
-        this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
+        this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         this.isLoaded = response.isLoaded;
       });
   }
 
   expandRow(username: string) {
     if (!this.isExpanded) {
-      this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: true}));
-      this.store.dispatch(new UsersReposActions.LoadRepos(username));
+      this.store.dispatch(callAppNotifications({payload: {isLoading: true}}));
+      this.store.dispatch(loadRepos({payload: username}));
       this.isExpanded = true;
       this.isLoaded = false;
     } else {
@@ -53,7 +55,7 @@ export class TableRowComponent implements OnInit {
   }
 
   goToUser() {
-    this.store.dispatch(new AppDataActions.SetCurrentUser({currentUser: this.user}));
+    this.store.dispatch(setCurrentUser({payload: {currentUser: this.user}}));
     this.router.navigateByUrl(`single-user/${this.user.login}`);
   }
 }

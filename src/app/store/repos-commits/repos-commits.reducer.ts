@@ -4,6 +4,7 @@ import {createEntityAdapter, EntityAdapter} from '@ngrx/entity';
 import {CommitsResponse} from './commitsResponse.type';
 import {CommitsState} from './commitsState.type';
 import {HttpErrorResponse} from '@angular/common/http';
+import {CustomAction} from '../custom-action.type';
 
 export const commitsAdapter: EntityAdapter<CommitsResponse> =
   createEntityAdapter<CommitsResponse>({
@@ -18,14 +19,14 @@ const initialState: UserCommitsResponseState = {
   items: initialCommitsState,
 };
 
-export function reposCommitsReducer(state = initialState, action: ReposCommitsActions.CommitsLoaded | ReposCommitsActions.CommitsFailed)
+export function reposCommitsReducer(state = initialState, action: CustomAction)
   : UserCommitsResponseState {
   switch (action.type) {
     case ReposCommitsActions.COMMITS_LOADED:
       return {
         ...state,
         repo: action.payload.repo,
-        // TODO: Заменить на AddMany
+        // TODO: change for addMany later when recreating selector
         items: commitsAdapter.addAll(action.payload.items, state.items),
         error: new HttpErrorResponse({status: 0})
       };

@@ -6,6 +6,8 @@ import * as AppDataActions from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 import {AppData} from '../../../store/app-data/app-data.type';
+import {searchUser} from '../../../store/app-data/app-data.actions';
+import {setCurrentPage} from '../../../store/app-data/app-data.actions';
 
 @Component({
   selector: 'app-filter-search',
@@ -43,7 +45,7 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
       distinctUntilChanged()
     ).subscribe((inputData: string) => {
       this.setSearchByUser(inputData);
-      this.store.dispatch(new AppDataActions.SetCurrentPage({currentPage: 1}));
+      this.store.dispatch(setCurrentPage({payload: {currentPage: 1}}));
     });
   }
 
@@ -54,6 +56,6 @@ export class FilterSearchComponent implements OnInit, OnDestroy {
 
   setSearchByUser($event): void {
     // search by user
-    this.store.dispatch(new AppDataActions.SearchUser({searchField: $event}));
+    this.store.dispatch(searchUser({payload: {searchField: $event}}));
   }
 }

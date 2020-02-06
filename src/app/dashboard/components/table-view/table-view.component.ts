@@ -7,6 +7,7 @@ import {selectorUsersResponse} from '../../../store/users/users.selectors';
 import * as AppNotificationsActions from '../../../store/app-notifications/app-notifications.actions';
 import {EntityState} from '@ngrx/entity';
 import {SearchResponseState} from '../../../store/users/searchResponseState.type';
+import {callAppNotifications} from '../../../store/app-notifications/app-notifications.actions';
 
 @Component({
   selector: 'app-table-view',
@@ -26,11 +27,11 @@ export class TableViewComponent implements OnInit, OnDestroy {
       .subscribe(
         (data: SearchResponseState) => {
           this.users = data.items.entities;
-          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
+          this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         },
         (error => {
           console.log(error);
-          this.store.dispatch(new AppNotificationsActions.CallAppNotifications({isLoading: false}));
+          this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         })
       );
   }

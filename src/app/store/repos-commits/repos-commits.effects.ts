@@ -5,6 +5,7 @@ import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {DashboardService} from '../../shared/services/dashboard.service';
 import {CustomAction} from '../custom-action.type';
 import * as ReposCommitsActions from './repos-commits.actions';
+import {commitsFailed} from './repos-commits.actions';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class ReposCommitsEffects {
       .pipe(
         map(repos => ({type: ReposCommitsActions.COMMITS_LOADED, payload: {repo: action.payload.repoName, items: repos}})),
         catchError(err => of(
-          new ReposCommitsActions.CommitsFailed({repo: action.payload.repoName, items: {ids: [], entities: {}}, error: err})
+          commitsFailed({payload: {repo: action.payload.repoName, items: {ids: [], entities: {}}, error: err}})
           )
         )
       ))

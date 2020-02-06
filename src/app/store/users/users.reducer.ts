@@ -3,6 +3,7 @@ import {SearchResponseState} from './searchResponseState.type';
 import {SearchResponseUser} from './searchResponseUser.type';
 import {createEntityAdapter, EntityAdapter} from '@ngrx/entity';
 import {SearchResponseUsersState} from './searchResponseUsersState.type';
+import {CustomAction} from '../custom-action.type';
 
 export const usersAdapter: EntityAdapter<SearchResponseUser> =
   createEntityAdapter<SearchResponseUser>();
@@ -16,7 +17,7 @@ const initialState: SearchResponseState = {
   items: initialUsersState,
 };
 
-export function usersReducer(state = initialState, action: UsersActions.UsersLoaded): SearchResponseState {
+export function usersReducer(state = initialState, action: CustomAction): SearchResponseState {
   switch (action.type) {
     case UsersActions.USERS_LOADED:
       return {

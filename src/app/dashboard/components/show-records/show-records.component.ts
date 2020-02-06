@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 import {AppData} from '../../../store/app-data/app-data.type';
+import {setCurrentPage, setUsersPerPage} from '../../../store/app-data/app-data.actions';
 
 @Component({
   selector: 'app-show-records',
@@ -47,10 +48,10 @@ export class ShowRecordsComponent implements OnInit, OnDestroy {
 
   setUserPerPage($event): void {
     // set users per page
-    this.store.dispatch(new AppDataActions.SetUsersPerPage({usersPerPage: $event}));
+    this.store.dispatch(setUsersPerPage({payload: {usersPerPage: $event}}));
   }
 
   resetPager(): void {
-    this.store.dispatch(new AppDataActions.SetCurrentPage({currentPage: 1}));
+    this.store.dispatch(setCurrentPage({payload: {currentPage: 1}}));
   }
 }

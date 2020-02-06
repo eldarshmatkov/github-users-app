@@ -1,12 +1,9 @@
-import {Action} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 import {AppNotifications} from './app-notifications';
 
 export const CALL_APP_NOTIFICATIONS = 'CALL_APP_NOTIFICATIONS';
 
-export class CallAppNotifications implements Action {
-  readonly type = CALL_APP_NOTIFICATIONS;
-
-  constructor(public payload: AppNotifications) {
-
-  }
-}
+export const callAppNotifications = createAction(
+  CALL_APP_NOTIFICATIONS,
+  props<{ payload: AppNotifications }>()
+);

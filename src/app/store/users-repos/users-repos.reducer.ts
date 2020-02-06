@@ -4,6 +4,7 @@ import {createEntityAdapter, EntityAdapter} from '@ngrx/entity';
 import {ReposResponse} from './reposResponse.type';
 import {UserReposResponseState} from './userReposResponseState.type';
 import {ReposState} from './ReposState.type';
+import {CustomAction} from '../custom-action.type';
 
 export const reposAdapter: EntityAdapter<ReposResponse> = createEntityAdapter<ReposResponse>();
 
@@ -15,7 +16,7 @@ const initialState: UserReposResponseState = {
   items: initialReposState,
 };
 
-export function usersReposReducer(state = initialState, action: UsersReposActions.ReposLoaded): UserReposResponseState {
+export function usersReposReducer(state: UserReposResponseState = initialState, action: CustomAction): UserReposResponseState {
   switch (action.type) {
     case UsersReposActions.REPOS_LOADED:
       return {
