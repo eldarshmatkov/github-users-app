@@ -7,7 +7,7 @@ const initialState: AppNotifications = {
 };
 
 
-export function appNotificationsReducer(state = initialState, action: CustomAction): AppNotifications {
+export function appNotificationsReducer(state: AppNotifications = initialState, action: CustomAction): AppNotifications {
   switch (action.type) {
     case CallNotificationsActions.CALL_APP_NOTIFICATIONS:
       return {

@@ -10,7 +10,7 @@ const initialState: AppData = {
 };
 
 
-export function appDataReducer(state = initialState, action: CustomAction): AppData {
+export function appDataReducer(state: AppData = initialState, action: CustomAction): AppData {
   switch (action.type) {
     case AppDataActions.SEARCH_USER:
       return {
