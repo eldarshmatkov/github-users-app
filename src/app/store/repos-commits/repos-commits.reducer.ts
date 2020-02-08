@@ -15,8 +15,8 @@ export const initialCommitsState: CommitsState =
   commitsAdapter.getInitialState();
 
 const initialState: UserCommitsResponseState = {
-  repo: '',
   items: initialCommitsState,
+  error: new HttpErrorResponse({status: 0}),
 };
 
 export function reposCommitsReducer(state = initialState, action: CustomAction)
@@ -25,16 +25,11 @@ export function reposCommitsReducer(state = initialState, action: CustomAction)
     case ReposCommitsActions.COMMITS_LOADED:
       return {
         ...state,
-        repo: action.payload.repo,
-        // TODO: change for addMany later when recreating selector
-        items: commitsAdapter.addAll(action.payload.items, state.items),
-        error: new HttpErrorResponse({status: 0})
+        items: commitsAdapter.addMany(action.payload.items, state.items),
       };
     case ReposCommitsActions.COMMITS_FAILED:
       return {
         ...state,
-        repo: action.payload.repo,
-        items: initialCommitsState,
         error: action.payload.error,
       };
     default:

@@ -6,11 +6,12 @@ import * as AppNotificationsActions from '../../../../../store/app-notifications
 import {StoreRootObject} from '../../../../../store/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
-import {selectorReposCommitsResponse} from '../../../../../store/repos-commits/repos-commits.selectors';
+import {getCommitsArray, getCommitsError, selectorReposCommitsResponse} from '../../../../../store/repos-commits/repos-commits.selectors';
 import * as CommitsReposActions from '../../../../../store/repos-commits/repos-commits.actions';
 import {UserCommitsResponseState} from '../../../../../store/repos-commits/userCommitsResponseState.type';
 import {loadCommits} from '../../../../../store/repos-commits/repos-commits.actions';
 import {callAppNotifications} from '../../../../../store/app-notifications/app-notifications.actions';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-repos-view',
@@ -26,30 +27,27 @@ export class ReposViewComponent implements OnInit {
   reposCommits: CommitsResponse[];
   commitsExpanded = false;
   fetchReposCommits$: Subscription;
+  commitsError$: Subscription;
 
   constructor(private dashboardService: DashboardService,
               private store: Store<StoreRootObject>) {
   }
 
   ngOnInit() {
-    this.fetchReposCommits$ = this.store.pipe(select(selectorReposCommitsResponse))
-      .subscribe((response: UserCommitsResponseState) => {
+    this.fetchReposCommits$ = this.store.pipe(select(getCommitsArray(this.repo.url)))
+      .subscribe((response: CommitsResponse[]) => {
         if (response) {
-          // TODO: Перенести функционал в селектор selectorReposCommitsResponse, брать выборку по конкретной repo id из store
-          if (response.repo === this.repo.name) {
-            // TODO: Сделать поток с ошибками и слушать его - вместо этого функционала if (response.error.status > 0) {
-            if (response.error.status > 0) {
-              this.httpErrorResponse = response.error.error.message;
-              this.reposCommits = [];
-              this.isNoCommits = true;
-            } else {
-              this.reposCommits = Object.values(response.items.entities);
-              this.isNoCommits = false;
-            }
-            // TODO: Перенести вызов action в effects/reducer - понять куда лучше
-            this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
-          }
+          this.reposCommits = response;
+          this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         }
+      });
+
+    this.commitsError$ = this.store.pipe(select(getCommitsError(this.repo.url)))
+      .subscribe((response: HttpErrorResponse) => {
+        if (response && response.status > 0) {
+          this.httpErrorResponse = response.error.message;
+          this.isNoCommits = true;
+        } else { this.isNoCommits = false; }
       });
   }
 

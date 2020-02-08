@@ -37,7 +37,6 @@ export class TableRowComponent implements OnInit {
     this.fetchUserRepos$ = this.store.pipe(select(getReposArray(this.user.id)))
       .subscribe((response: UserReposResponse) => {
         this.userReposWithArray = response;
-          // TODO: Перенести вызов action в effects/reducer - понять куда лучше
         this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         this.isLoaded = response.isLoaded;
       });

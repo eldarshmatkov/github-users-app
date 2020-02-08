@@ -16,9 +16,9 @@ export class ReposCommitsEffects {
     ofType(ReposCommitsActions.LOAD_COMMITS),
     switchMap((action: CustomAction) => this.dashboardService.fetchReposCommits(action.payload.userLogin, action.payload.repoName)
       .pipe(
-        map(repos => ({type: ReposCommitsActions.COMMITS_LOADED, payload: {repo: action.payload.repoName, items: repos}})),
+        map(repos => ({type: ReposCommitsActions.COMMITS_LOADED, payload: {items: repos}})),
         catchError(err => of(
-          commitsFailed({payload: {repo: action.payload.repoName, items: {ids: [], entities: {}}, error: err}})
+          commitsFailed({payload: {error: err}})
           )
         )
       ))

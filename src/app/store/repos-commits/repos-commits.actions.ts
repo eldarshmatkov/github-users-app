@@ -1,5 +1,6 @@
 import {createAction, props} from '@ngrx/store';
 import {UserCommitsResponseState} from './userCommitsResponseState.type';
+import {HttpErrorResponse} from '@angular/common/http';
 
 export const LOAD_COMMITS = 'LOAD_COMMITS';
 export const COMMITS_LOADED = 'COMMITS_LOADED';
@@ -12,5 +13,5 @@ export const loadCommits = createAction(
 
 export const commitsFailed = createAction(
   COMMITS_FAILED,
-  props<{ payload: UserCommitsResponseState }>()
+  props<{ payload: { error: HttpErrorResponse } }>()
 );
