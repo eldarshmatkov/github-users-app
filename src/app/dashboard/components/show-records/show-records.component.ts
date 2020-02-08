@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import * as AppDataActions from '../../../store/app-data/app-data.actions';
+import {setCurrentPage, setUsersPerPage} from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {take} from 'rxjs/operators';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 import {AppData} from '../../../store/app-data/app-data.type';
-import {setCurrentPage, setUsersPerPage} from '../../../store/app-data/app-data.actions';
 
 @Component({
   selector: 'app-show-records',

@@ -4,10 +4,8 @@ import {select, Store} from '@ngrx/store';
 import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {selectorUsersResponse} from '../../../store/users/users.selectors';
-import * as AppNotificationsActions from '../../../store/app-notifications/app-notifications.actions';
-import {EntityState} from '@ngrx/entity';
-import {SearchResponseState} from '../../../store/users/searchResponseState.type';
 import {callAppNotifications} from '../../../store/app-notifications/app-notifications.actions';
+import {SearchResponseState} from '../../../store/users/searchResponseState.type';
 
 @Component({
   selector: 'app-table-view',

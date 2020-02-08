@@ -2,12 +2,10 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {fromEvent, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, take} from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';
-import * as AppDataActions from '../../../store/app-data/app-data.actions';
+import {searchUser, setCurrentPage} from '../../../store/app-data/app-data.actions';
 import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {selectorAppData} from '../../../store/app-data/app-data.selectors';
 import {AppData} from '../../../store/app-data/app-data.type';
-import {searchUser} from '../../../store/app-data/app-data.actions';
-import {setCurrentPage} from '../../../store/app-data/app-data.actions';
 
 @Component({
   selector: 'app-filter-search',

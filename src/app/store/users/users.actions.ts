@@ -1,5 +1,4 @@
-import {Action, createAction, props} from '@ngrx/store';
-import {SearchResponse} from './searchResponse.type';
+import {createAction, props} from '@ngrx/store';
 import {AppData} from '../app-data/app-data.type';
 
 export const LOAD_USERS = 'LOAD_USERS';

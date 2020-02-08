@@ -2,15 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DashboardService} from '../../../../../shared/services/dashboard.service';
 import {ReposResponse} from '../../../../../store/users-repos/reposResponse.type';
 import {CommitsResponse} from '../../../../../store/repos-commits/commitsResponse.type';
-import * as AppNotificationsActions from '../../../../../store/app-notifications/app-notifications.actions';
+import {callAppNotifications} from '../../../../../store/app-notifications/app-notifications.actions';
 import {StoreRootObject} from '../../../../../store/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
 import {Subscription} from 'rxjs';
-import {getCommitsArray, getCommitsError, selectorReposCommitsResponse} from '../../../../../store/repos-commits/repos-commits.selectors';
-import * as CommitsReposActions from '../../../../../store/repos-commits/repos-commits.actions';
-import {UserCommitsResponseState} from '../../../../../store/repos-commits/userCommitsResponseState.type';
+import {getCommitsArray, getCommitsError} from '../../../../../store/repos-commits/repos-commits.selectors';
 import {loadCommits} from '../../../../../store/repos-commits/repos-commits.actions';
-import {callAppNotifications} from '../../../../../store/app-notifications/app-notifications.actions';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
@@ -47,7 +44,9 @@ export class ReposViewComponent implements OnInit {
         if (response && response.status > 0) {
           this.httpErrorResponse = response.error.message;
           this.isNoCommits = true;
-        } else { this.isNoCommits = false; }
+        } else {
+          this.isNoCommits = false;
+        }
       });
   }
 

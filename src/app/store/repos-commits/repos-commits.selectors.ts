@@ -1,11 +1,7 @@
 import {StoreRootObject} from '../storeRootObject.type';
 import {createSelector} from '@ngrx/store';
-import {UserReposResponseState} from '../users-repos/userReposResponseState.type';
-import {ReposResponse} from '../users-repos/reposResponse.type';
-import {selectorUsersReposResponse} from '../users-repos/users-repos.selectors';
 import {UserCommitsResponseState} from './userCommitsResponseState.type';
 import {CommitsResponse} from './commitsResponse.type';
-import {HttpErrorResponse} from '@angular/common/http';
 
 export const rootStore = (state: StoreRootObject) => state;
 

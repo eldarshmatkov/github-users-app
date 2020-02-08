@@ -1,4 +1,4 @@
-import {Action, createAction, props} from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 import {AppData} from './app-data.type';
 
 export const SEARCH_USER = 'SEARCH_USER';

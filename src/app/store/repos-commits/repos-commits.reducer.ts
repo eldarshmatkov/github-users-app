@@ -19,7 +19,7 @@ const initialState: UserCommitsResponseState = {
   error: new HttpErrorResponse({status: 0}),
 };
 
-export function reposCommitsReducer(state = initialState, action: CustomAction)
+export function reposCommitsReducer(state: UserCommitsResponseState = initialState, action: CustomAction)
   : UserCommitsResponseState {
   switch (action.type) {
     case ReposCommitsActions.COMMITS_LOADED:

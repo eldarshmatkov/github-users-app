@@ -4,16 +4,13 @@ import {Router} from '@angular/router';
 import {SearchResponseUser} from '../../../../../store/users/searchResponseUser.type';
 import {StoreRootObject} from '../../../../../store/storeRootObject.type';
 import {select, Store} from '@ngrx/store';
-import * as AppNotificationsActions from '../../../../../store/app-notifications/app-notifications.actions';
-import * as UsersReposActions from '../../../../../store/users-repos/users-repos.actions';
+import {callAppNotifications} from '../../../../../store/app-notifications/app-notifications.actions';
+import {loadRepos} from '../../../../../store/users-repos/users-repos.actions';
 import {getReposArray} from '../../../../../store/users-repos/users-repos.selectors';
 import {Subscription} from 'rxjs';
 import {UserReposResponse} from '../../../../../store/users-repos/userReposResponse.type';
-import * as AppDataActions from '../../../../../store/app-data/app-data.actions';
-import {UserReposResponseState} from '../../../../../store/users-repos/userReposResponseState.type';
-import {loadRepos} from '../../../../../store/users-repos/users-repos.actions';
-import {callAppNotifications} from '../../../../../store/app-notifications/app-notifications.actions';
 import {setCurrentUser} from '../../../../../store/app-data/app-data.actions';
+import {UserReposResponseState} from '../../../../../store/users-repos/userReposResponseState.type';
 
 @Component({
   selector: 'app-table-row',

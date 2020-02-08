@@ -1,17 +1,14 @@
 import {AfterContentChecked, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {DashboardService} from '../shared/services/dashboard.service';
 import {select, Store} from '@ngrx/store';
-import * as UsersActions from '../store/users/users.actions';
+import {loadUsers} from '../store/users/users.actions';
 import {StoreRootObject} from '../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
 import {selectorAppData} from '../store/app-data/app-data.selectors';
 import {selectorAppNotifications} from '../store/app-notifications/app-notifications.selectors';
-import * as AppNotificationsActions from '../store/app-notifications/app-notifications.actions';
-import {debounceTime} from 'rxjs/operators';
+import {callAppNotifications} from '../store/app-notifications/app-notifications.actions';
 import {AppData} from '../store/app-data/app-data.type';
 import {AppNotifications} from '../store/app-notifications/app-notifications';
-import {loadUsers} from '../store/users/users.actions';
-import {callAppNotifications} from '../store/app-notifications/app-notifications.actions';
 
 @Component({
   selector: 'app-dashboard',

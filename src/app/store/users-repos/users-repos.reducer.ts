@@ -1,5 +1,4 @@
 import * as UsersReposActions from './users-repos.actions';
-import {UserReposResponse} from './userReposResponse.type';
 import {createEntityAdapter, EntityAdapter} from '@ngrx/entity';
 import {ReposResponse} from './reposResponse.type';
 import {UserReposResponseState} from './userReposResponseState.type';
