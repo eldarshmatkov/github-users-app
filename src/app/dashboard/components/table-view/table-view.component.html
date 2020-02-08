@@ -5,7 +5,13 @@
       <div class="col">Url</div>
     </div>
   </div>
-  <div class="table__body" *ngIf="users; else noUsers">
+  <div class="row" *ngIf="errorMessage?.length > 0">
+    <div class="col mt-3 ml-3">
+      {{errorMessage}}
+    </div>
+  </div>
+  <div class="table__body" *ngIf="users; else noUsers"
+       [ngClass]="{'table__body_restricted': errorMessage?.length > 0}">
     <app-table-row
       *ngFor="let user of users | keyvalue" [user]="user.value">
     </app-table-row>
@@ -21,3 +27,9 @@
     </div>
   </div>
 </ng-template>
+
+<div class="row" *ngIf="errorMessage?.length > 0">
+  <div class="col mt-3 ml-3">
+    {{errorMessage}}
+  </div>
+</div>

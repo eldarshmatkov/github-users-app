@@ -3,9 +3,10 @@ import {SearchResponseUser} from '../../../store/users/searchResponseUser.type';
 import {select, Store} from '@ngrx/store';
 import {StoreRootObject} from '../../../store/storeRootObject.type';
 import {Subscription} from 'rxjs';
-import {selectorUsersResponse} from '../../../store/users/users.selectors';
+import {selectorUsersResponse, usersResponseError} from '../../../store/users/users.selectors';
 import {callAppNotifications} from '../../../store/app-notifications/app-notifications.actions';
 import {SearchResponseState} from '../../../store/users/searchResponseState.type';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-table-view',
@@ -16,6 +17,8 @@ import {SearchResponseState} from '../../../store/users/searchResponseState.type
 export class TableViewComponent implements OnInit, OnDestroy {
   users: SearchResponseUser;
   usersResponseSubscription$: Subscription;
+  responseErrorSubscription$: Subscription;
+  errorMessage: string;
 
   constructor(private store: Store<StoreRootObject>) {
   }
@@ -31,6 +34,16 @@ export class TableViewComponent implements OnInit, OnDestroy {
           console.log(error);
           this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         })
+      );
+    this.responseErrorSubscription$ = this.store.pipe(select(usersResponseError))
+      .subscribe(
+        (error: HttpErrorResponse) => {
+          if (error.status > 0) {
+            this.errorMessage = error.error.message;
+          } else {
+            this.errorMessage = '';
+          }
+        }
       );
   }
 
