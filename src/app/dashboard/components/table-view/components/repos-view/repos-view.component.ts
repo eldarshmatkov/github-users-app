@@ -33,7 +33,7 @@ export class ReposViewComponent implements OnInit {
   ngOnInit() {
     this.fetchReposCommits$ = this.store.pipe(select(getCommitsArray(this.repo.url)))
       .subscribe((response: CommitsResponse[]) => {
-        if (response) {
+        if (response.length) {
           this.reposCommits = response;
           this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         }

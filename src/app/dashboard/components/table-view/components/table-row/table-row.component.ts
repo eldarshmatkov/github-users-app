@@ -33,9 +33,11 @@ export class TableRowComponent implements OnInit {
   ngOnInit() {
     this.fetchUserRepos$ = this.store.pipe(select(getReposArray(this.user.id)))
       .subscribe((response: UserReposResponse) => {
-        this.userReposWithArray = response;
-        this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
-        this.isLoaded = response.isLoaded;
+        if (response.items.length) {
+          this.userReposWithArray = response;
+          this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
+          this.isLoaded = response.isLoaded;
+        }
       });
   }
 
