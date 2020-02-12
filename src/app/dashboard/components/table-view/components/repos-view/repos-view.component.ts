@@ -35,7 +35,6 @@ export class ReposViewComponent implements OnInit {
       .subscribe((response: CommitsResponse[]) => {
         if (response.length) {
           this.reposCommits = response;
-          this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         }
       });
 
@@ -52,7 +51,6 @@ export class ReposViewComponent implements OnInit {
 
   expandRow() {
     if (!this.commitsExpanded) {
-      this.store.dispatch(callAppNotifications({payload: {isLoading: true}}));
       this.store.dispatch(loadCommits({payload: {userLogin: this.userLogin, repoName: this.repo.name}}));
     }
     this.commitsExpanded = !this.commitsExpanded;

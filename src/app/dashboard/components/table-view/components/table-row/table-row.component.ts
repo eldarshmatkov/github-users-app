@@ -35,7 +35,6 @@ export class TableRowComponent implements OnInit {
       .subscribe((response: UserReposResponse) => {
         if (response.items.length) {
           this.userReposWithArray = response;
-          this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
           this.isLoaded = response.isLoaded;
         }
       });
@@ -43,7 +42,6 @@ export class TableRowComponent implements OnInit {
 
   expandRow(username: string) {
     if (!this.isExpanded) {
-      this.store.dispatch(callAppNotifications({payload: {isLoading: true}}));
       this.store.dispatch(loadRepos({payload: username}));
       this.isExpanded = true;
       this.isLoaded = false;

@@ -36,7 +36,6 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterContentChecke
           if (!data.searchField) {
             return;
           }
-          this.store.dispatch(callAppNotifications({payload: {isLoading: true}}));
           this.store.dispatch(loadUsers({
             payload: {
                 searchField: data.searchField,

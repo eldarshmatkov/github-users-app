@@ -28,11 +28,9 @@ export class TableViewComponent implements OnInit, OnDestroy {
       .subscribe(
         (data: SearchResponseState) => {
           this.users = data.items.entities;
-          this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         },
         (error => {
           console.log(error);
-          this.store.dispatch(callAppNotifications({payload: {isLoading: false}}));
         })
       );
     this.responseErrorSubscription$ = this.store.pipe(select(usersResponseError))
