@@ -51,7 +51,7 @@ export class TableRowComponent implements OnInit {
   }
 
   goToUser() {
-    this.store.dispatch(setCurrentUser({payload: {currentUser: this.user}}));
+    this.store.dispatch(setCurrentUser({payload: {currentUser: this.user.id}}));
     this.router.navigateByUrl(`single-user/${this.user.login}`);
   }
 }

@@ -17,7 +17,7 @@ export class CanActivateRouteGuard implements CanActivate {
       select(selectorAppData),
       map(
         (data) => {
-          if (Object.keys(data.currentUser).length === 0) {
+          if (data.currentUser === 0) {
             this.router.navigate(['']);
           }
           return true;

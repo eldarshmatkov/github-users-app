@@ -6,7 +6,7 @@ const initialState: AppData = {
   searchField: '',
   usersPerPage: 10,
   currentPage: 1,
-  currentUser: {}
+  currentUser: 0,
 };
 
 
